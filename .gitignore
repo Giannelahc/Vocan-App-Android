@@ -1,0 +1,84 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+
+# ==============================
+# Android / Gradle
+# ==============================
+
+.gradle/
+build/
+*/build/
+captures/
+
+# Gradle generated files
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.jar
+
+# ==============================
+# Android Studio
+# ==============================
+
+.idea/
+
+# ==============================
+# Local configuration
+# ==============================
+
+# Contains local SDK path
+
+# ==============================
+# Android build outputs
+# ==============================
+
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# ==============================
+# Kotlin
+# ==============================
+
+.kotlin/
+
+# ==============================
+# Native / C++
+# ==============================
+
+.externalNativeBuild/
+.cxx/
+
+# ==============================
+# Signing / secrets
+# ==============================
+
+*.jks
+*.keystore
+.env
+.env.*
+
+# ==============================
+# OS
+# ==============================
+
+Thumbs.db
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
