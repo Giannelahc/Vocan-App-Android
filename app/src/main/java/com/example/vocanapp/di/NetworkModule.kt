@@ -2,7 +2,11 @@ package com.example.vocanapp.di
 
 import com.example.vocanapp.data.remote.AuthApi
 import com.example.vocanapp.data.remote.AuthInterceptor
+import com.example.vocanapp.data.remote.LanguageApi
 import com.example.vocanapp.data.remote.UserApi
+import com.example.vocanapp.data.remote.VocabularyApi
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,11 +47,17 @@ object NetworkModule {
         okHttpClient: OkHttpClient
     ): Retrofit {
 
+        val gson = GsonBuilder()
+            .setFieldNamingPolicy(
+                FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
+            )
+            .create()
+
         return Retrofit.Builder()
             .baseUrl("http://127.0.0.1:8000/vocan-agent/")
             .client(okHttpClient)
             .addConverterFactory(
-                GsonConverterFactory.create()
+                GsonConverterFactory.create(gson)
             )
             .build()
     }
@@ -67,5 +77,21 @@ object NetworkModule {
         retrofit: Retrofit
     ): UserApi {
         return retrofit.create(UserApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideVocabularyApi(
+        retrofit: Retrofit
+    ): VocabularyApi {
+        return retrofit.create(VocabularyApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLanguageApi(
+        retrofit: Retrofit
+    ): LanguageApi {
+        return retrofit.create(LanguageApi::class.java)
     }
 }

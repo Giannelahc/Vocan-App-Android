@@ -28,5 +28,6 @@ fun PreferenceResponse.toDomain(): Preference =
 fun LanguageResponse.toDomain(): Language =
     Language(
         id = id,
+        code = code,
         name = name
     )

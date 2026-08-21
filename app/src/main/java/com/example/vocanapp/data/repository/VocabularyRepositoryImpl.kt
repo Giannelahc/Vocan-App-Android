@@ -1,0 +1,40 @@
+package com.example.vocanapp.data.repository
+
+import com.example.vocanapp.data.mapper.toDomain
+import com.example.vocanapp.data.model.vocabulary.WordRequest
+import com.example.vocanapp.data.remote.VocabularyApi
+import com.example.vocanapp.domain.model.Word
+import com.example.vocanapp.domain.model.WordList
+import com.example.vocanapp.domain.model.WordSummary
+import com.example.vocanapp.domain.repository.VocabularyRepository
+import javax.inject.Inject
+
+class VocabularyRepositoryImpl @Inject constructor(
+    private val api: VocabularyApi
+) : VocabularyRepository {
+
+    override suspend fun getWordList(
+        languageId: Int?,
+        search: String?,
+        page: Int?,
+        pageSize: Int?
+    ): WordList {
+        val vocabularyList = api.getWordList(languageId, search, page, pageSize)
+        return vocabularyList.toDomain()
+    }
+
+    override suspend fun getWordDetailById(wordId: Int): Word {
+        val vocabularyWord = api.getWord(wordId)
+        return vocabularyWord.toDomain()
+    }
+
+    override suspend fun addWord(
+        word: String,
+        languageId: Int
+    ): WordSummary {
+        val savedWord = api.registerWord(WordRequest(word, languageId))
+        return savedWord.toDomain()
+    }
+
+
+}
