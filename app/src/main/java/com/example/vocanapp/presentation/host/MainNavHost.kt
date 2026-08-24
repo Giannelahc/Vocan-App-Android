@@ -13,6 +13,7 @@ import com.example.vocanapp.presentation.main.MainNavigationBar
 import com.example.vocanapp.presentation.main.home.HomeRoute
 import com.example.vocanapp.presentation.main.vocabulary.VocabularyRoute
 import com.example.vocanapp.presentation.main.vocabulary.detail.VocabularyDetailRoute
+import com.example.vocanapp.presentation.main.vocabulary.wordidentification.IdentifyWordsRoute
 
 @Composable
 fun MainNavHost() {
@@ -43,6 +44,20 @@ fun MainNavHost() {
                         navController.navigate(
                             "vocabulary/$wordId"
                         )
+                    },
+                    onIdentifyWordsClick = {
+                        navController.navigate("identify")
+                    }
+                )
+            }
+
+            composable("identify") {
+                IdentifyWordsRoute (
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onWordsAdded = {
+                        navController.popBackStack()
                     }
                 )
             }

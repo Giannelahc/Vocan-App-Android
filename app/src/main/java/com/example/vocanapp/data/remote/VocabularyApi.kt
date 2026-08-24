@@ -1,8 +1,10 @@
 package com.example.vocanapp.data.remote
 
+import com.example.vocanapp.data.model.vocabulary.SentenceRequest
 import com.example.vocanapp.data.model.vocabulary.VocabularyListResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordSummaryResponse
+import com.example.vocanapp.data.model.vocabulary.WordOptionResponse
 import com.example.vocanapp.data.model.vocabulary.WordRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,4 +31,9 @@ interface VocabularyApi {
     suspend fun registerWord(
         @Body request: WordRequest
     ): VocabularyWordSummaryResponse
+
+    @POST("vocabulary/identify")
+    suspend fun identifyWordsFromASentence(
+        @Body request: SentenceRequest
+    ): List<WordOptionResponse>
 }

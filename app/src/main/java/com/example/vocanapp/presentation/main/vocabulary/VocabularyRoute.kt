@@ -12,7 +12,8 @@ import com.example.vocanapp.presentation.main.vocabulary.components.addWord.Voca
 
 @Composable
 fun VocabularyRoute(
-    onWordClick: (Int) -> Unit
+    onWordClick: (Int) -> Unit,
+    onIdentifyWordsClick: () -> Unit
 ) {
 
     val viewModel: VocabularyViewModel = hiltViewModel()
@@ -80,6 +81,7 @@ fun VocabularyRoute(
 
         onAddWordDismiss = {
             showAddWordSheet = false
-        }
+        },
+        onIdentifyWordsClick = onIdentifyWordsClick
     )
 }

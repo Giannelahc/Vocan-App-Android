@@ -1,10 +1,12 @@
 package com.example.vocanapp.data.repository
 
 import com.example.vocanapp.data.mapper.toDomain
+import com.example.vocanapp.data.model.vocabulary.SentenceRequest
 import com.example.vocanapp.data.model.vocabulary.WordRequest
 import com.example.vocanapp.data.remote.VocabularyApi
 import com.example.vocanapp.domain.model.Word
 import com.example.vocanapp.domain.model.WordList
+import com.example.vocanapp.domain.model.WordOption
 import com.example.vocanapp.domain.model.WordSummary
 import com.example.vocanapp.domain.repository.VocabularyRepository
 import javax.inject.Inject
@@ -34,6 +36,14 @@ class VocabularyRepositoryImpl @Inject constructor(
     ): WordSummary {
         val savedWord = api.registerWord(WordRequest(word, languageId))
         return savedWord.toDomain()
+    }
+
+    override suspend fun identifyWords(
+        text: String,
+        languageId: Int
+    ): List<WordOption> {
+        val wordOptions = api.identifyWordsFromASentence(SentenceRequest(text, languageId))
+        return wordOptions.map { it.toDomain() }
     }
 
 

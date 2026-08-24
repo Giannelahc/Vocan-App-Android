@@ -8,6 +8,7 @@ import com.example.vocanapp.data.model.vocabulary.UserExampleResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyListResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordSummaryResponse
+import com.example.vocanapp.data.model.vocabulary.WordOptionResponse
 import com.example.vocanapp.data.model.vocabulary.WordSenseResponse
 import com.example.vocanapp.domain.model.Conjugation
 import com.example.vocanapp.domain.model.Example
@@ -16,6 +17,7 @@ import com.example.vocanapp.domain.model.Synonym
 import com.example.vocanapp.domain.model.UserExample
 import com.example.vocanapp.domain.model.Word
 import com.example.vocanapp.domain.model.WordList
+import com.example.vocanapp.domain.model.WordOption
 import com.example.vocanapp.domain.model.WordSense
 import com.example.vocanapp.domain.model.WordSummary
 
@@ -88,4 +90,12 @@ fun SynonymResponse.toDomain(): Synonym =
     Synonym(
         id = id,
         word = word
+    )
+
+fun WordOptionResponse.toDomain(): WordOption =
+    WordOption(
+        text = text,
+        baseForm = baseForm,
+        type = type,
+        alreadyRegistered = alreadyRegistered
     )
