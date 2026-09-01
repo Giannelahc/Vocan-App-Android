@@ -3,6 +3,7 @@ package com.example.vocanapp.di
 import com.example.vocanapp.data.remote.AuthApi
 import com.example.vocanapp.data.remote.AuthInterceptor
 import com.example.vocanapp.data.remote.LanguageApi
+import com.example.vocanapp.data.remote.ReviewApi
 import com.example.vocanapp.data.remote.UserApi
 import com.example.vocanapp.data.remote.VocabularyApi
 import com.google.gson.FieldNamingPolicy
@@ -93,5 +94,13 @@ object NetworkModule {
         retrofit: Retrofit
     ): LanguageApi {
         return retrofit.create(LanguageApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReviewApi(
+        retrofit: Retrofit
+    ): ReviewApi {
+        return retrofit.create(ReviewApi::class.java)
     }
 }

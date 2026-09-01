@@ -2,6 +2,7 @@ package com.example.vocanapp.presentation.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
@@ -66,6 +67,28 @@ fun MainNavigationBar(
             },
             label = {
                 Text("Vocabulary")
+            }
+        )
+
+        NavigationBarItem(
+            selected = currentRoute == "review",
+            onClick = {
+                navController.navigate("review") {
+                    popUpTo("home") {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AddTask,
+                    contentDescription = "Review"
+                )
+            },
+            label = {
+                Text("Review")
             }
         )
 

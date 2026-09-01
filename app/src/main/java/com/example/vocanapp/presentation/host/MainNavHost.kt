@@ -11,6 +11,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.vocanapp.presentation.main.MainNavigationBar
 import com.example.vocanapp.presentation.main.home.HomeRoute
+import com.example.vocanapp.presentation.main.review.ReviewHomeRoute
+import com.example.vocanapp.presentation.main.review.list.ReviewListRoute
+import com.example.vocanapp.presentation.main.review.session.ReviewSessionRoute
 import com.example.vocanapp.presentation.main.vocabulary.VocabularyRoute
 import com.example.vocanapp.presentation.main.vocabulary.detail.VocabularyDetailRoute
 import com.example.vocanapp.presentation.main.vocabulary.wordidentification.IdentifyWordsRoute
@@ -57,6 +60,57 @@ fun MainNavHost() {
                         navController.popBackStack()
                     },
                     onWordsAdded = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable("review") {
+                ReviewHomeRoute(
+                    onReviewClick = { reviewId ->
+                        navController.navigate(
+                            "review/$reviewId"
+                        )
+                    },
+                    onViewAllClick = {
+                        navController.navigate("review/all")
+                    }
+                )
+            }
+
+            composable("review/all") {
+                ReviewListRoute(
+                    navController = navController,
+                    onReviewClick = { reviewId ->
+                        navController.navigate("review/$reviewId")
+                    }
+                )
+            }
+
+            composable(
+                route = "review/{reviewId}",
+                arguments = listOf(
+                    navArgument("reviewId") {
+                        type = NavType.IntType
+                    }
+                )
+            ) { backStackEntry ->
+
+                val reviewId =
+                    backStackEntry.arguments?.getInt("reviewId")
+                        ?: return@composable
+
+                ReviewSessionRoute(
+                    reviewId = reviewId,
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onReviewFinished = {
+
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("review_updated", true)
+
                         navController.popBackStack()
                     }
                 )

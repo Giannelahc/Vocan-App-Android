@@ -86,7 +86,7 @@ fun VocabularyScreen(
         ) {
 
             Spacer(
-                modifier = Modifier.height(16.dp)
+                modifier = Modifier.height(8.dp)
             )
 
             Text(
