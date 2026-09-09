@@ -9,5 +9,5 @@ data class UserInfo (
     val username: String,
     val email: String,
     val createdAt: Date,
-    val preference: Preference
+    val preference: Preference?
 )

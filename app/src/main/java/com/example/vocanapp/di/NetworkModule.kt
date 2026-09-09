@@ -3,6 +3,7 @@ package com.example.vocanapp.di
 import com.example.vocanapp.data.remote.AuthApi
 import com.example.vocanapp.data.remote.AuthInterceptor
 import com.example.vocanapp.data.remote.LanguageApi
+import com.example.vocanapp.data.remote.PreferenceApi
 import com.example.vocanapp.data.remote.ReviewApi
 import com.example.vocanapp.data.remote.UserApi
 import com.example.vocanapp.data.remote.VocabularyApi
@@ -102,5 +103,13 @@ object NetworkModule {
         retrofit: Retrofit
     ): ReviewApi {
         return retrofit.create(ReviewApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePreferenceApi(
+        retrofit: Retrofit
+    ): PreferenceApi {
+        return retrofit.create(PreferenceApi::class.java)
     }
 }

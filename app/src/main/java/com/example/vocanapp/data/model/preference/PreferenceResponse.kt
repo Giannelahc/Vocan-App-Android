@@ -1,6 +1,6 @@
-package com.example.vocanapp.data.model.user
+package com.example.vocanapp.data.model.preference
 
-
+import com.example.vocanapp.data.model.user.LanguageResponse
 
 data class PreferenceResponse (
     val id: Int,

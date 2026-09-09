@@ -1,5 +1,6 @@
 package com.example.vocanapp.data.model.user
 
+import com.example.vocanapp.data.model.preference.PreferenceResponse
 import java.util.Date
 
 
@@ -10,6 +11,6 @@ data class UserInfoResponse (
     val username: String,
     val email: String,
     val createdAt: Date,
-    val preference: PreferenceResponse
+    val preference: PreferenceResponse?
 
 )

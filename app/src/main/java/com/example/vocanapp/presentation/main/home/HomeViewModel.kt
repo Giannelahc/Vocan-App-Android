@@ -13,6 +13,8 @@ import com.example.vocanapp.domain.usecase.GetCurrentUserUseCase
 import com.example.vocanapp.domain.usecase.RegisterUseCase
 import com.example.vocanapp.presentation.auth.register.RegisterEvent
 import com.example.vocanapp.presentation.auth.register.RegisterUiState
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -21,6 +23,9 @@ class HomeViewModel @Inject constructor(
 
     var uiState by mutableStateOf(HomeUiState())
         private set
+
+    private val _events = MutableSharedFlow<HomeEvent>()
+    val events = _events.asSharedFlow()
 
     init {
         loadUser()
@@ -43,6 +48,13 @@ class HomeViewModel @Inject constructor(
                     isLoading = false,
                     user = user
                 )
+
+                if (user.preference == null) {
+
+                    _events.emit(
+                        HomeEvent.NavigateToProfile
+                    )
+                }
 
             } catch (e: Exception) {
                 Log.e("LOAD USER ERROR", "Load user error", e)

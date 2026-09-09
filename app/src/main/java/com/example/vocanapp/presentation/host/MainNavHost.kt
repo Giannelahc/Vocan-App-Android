@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.vocanapp.presentation.main.MainNavigationBar
 import com.example.vocanapp.presentation.main.home.HomeRoute
+import com.example.vocanapp.presentation.main.profile.ProfileRoute
 import com.example.vocanapp.presentation.main.review.ReviewHomeRoute
 import com.example.vocanapp.presentation.main.review.list.ReviewListRoute
 import com.example.vocanapp.presentation.main.review.session.ReviewSessionRoute
@@ -38,7 +39,13 @@ fun MainNavHost() {
         ) {
 
             composable("home") {
-                HomeRoute()
+                HomeRoute(
+                    onNavigateToProfile = {
+                        navController.navigate("profile") {
+                            launchSingleTop = true
+                        }
+                    }
+                )
             }
 
             composable("vocabulary") {
@@ -117,7 +124,17 @@ fun MainNavHost() {
             }
 
             composable("profile") {
-                // ProfileRoute()
+                ProfileRoute(
+                    onNotificationsClick = {
+                        // navegación/configuración
+                    },
+                    onAppearanceClick = {
+                        // navegación/configuración
+                    },
+                    onLogoutClick = {
+                        // logout
+                    }
+                )
             }
 
             composable(
