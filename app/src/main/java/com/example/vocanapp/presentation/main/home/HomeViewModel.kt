@@ -10,15 +10,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import android.util.Log
 import com.example.vocanapp.domain.usecase.GetCurrentUserUseCase
-import com.example.vocanapp.domain.usecase.RegisterUseCase
-import com.example.vocanapp.presentation.auth.register.RegisterEvent
-import com.example.vocanapp.presentation.auth.register.RegisterUiState
+import com.example.vocanapp.domain.usecase.GetHomeInfoUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val getHomeInfoUseCase: GetHomeInfoUseCase
 ) : ViewModel() {
 
     var uiState by mutableStateOf(HomeUiState())
@@ -43,10 +42,11 @@ class HomeViewModel @Inject constructor(
             try {
 
                 val user = getCurrentUserUseCase()
+                val home = getHomeInfoUseCase()
 
                 uiState = uiState.copy(
                     isLoading = false,
-                    user = user
+                    home = home
                 )
 
                 if (user.preference == null) {

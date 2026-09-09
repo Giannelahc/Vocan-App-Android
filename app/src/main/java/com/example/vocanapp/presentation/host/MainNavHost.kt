@@ -130,9 +130,6 @@ fun MainNavHost() {
                     },
                     onAppearanceClick = {
                         // navegación/configuración
-                    },
-                    onLogoutClick = {
-                        // logout
                     }
                 )
             }

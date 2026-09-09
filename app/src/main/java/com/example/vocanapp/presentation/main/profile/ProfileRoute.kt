@@ -1,6 +1,7 @@
 package com.example.vocanapp.presentation.main.profile
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -12,8 +13,7 @@ import com.example.vocanapp.presentation.main.profile.component.NativeLanguageBo
 @Composable
 fun ProfileRoute(
     onNotificationsClick: () -> Unit,
-    onAppearanceClick: () -> Unit,
-    onLogoutClick: () -> Unit
+    onAppearanceClick: () -> Unit
 ) {
 
     val viewModel: ProfileViewModel = hiltViewModel()
@@ -43,7 +43,9 @@ fun ProfileRoute(
 
         onAppearanceClick = onAppearanceClick,
 
-        onLogoutClick = onLogoutClick,
+        onLogoutClick = {
+            viewModel.logout()
+        },
 
         onSavePreferences = {
             viewModel.savePreferences()

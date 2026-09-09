@@ -14,4 +14,6 @@ interface AuthRepository {
     suspend fun register(
         user: User
     ): RegisterResult
+
+    suspend fun logout(): Unit
 }

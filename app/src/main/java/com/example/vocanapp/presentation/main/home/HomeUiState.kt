@@ -1,9 +1,9 @@
 package com.example.vocanapp.presentation.main.home
 
-import com.example.vocanapp.domain.model.UserInfo
+import com.example.vocanapp.domain.model.HomeInfo
 
 data class HomeUiState(
     val isLoading: Boolean = true,
-    val user: UserInfo? = null,
+    val home: HomeInfo? = null,
     val error: String? = null
 )

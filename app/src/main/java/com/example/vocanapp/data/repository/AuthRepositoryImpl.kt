@@ -38,4 +38,8 @@ class AuthRepositoryImpl @Inject constructor(
 
         return RegisterResult(response.id, response.email)
     }
+
+    override suspend fun logout() {
+        authApi.logout()
+    }
 }

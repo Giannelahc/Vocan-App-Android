@@ -18,4 +18,7 @@ interface AuthApi {
     suspend fun registerUser(
         @Body request: RegisterUserRequest
     ): RegisterUserResponse
+
+    @POST("auth/logout")
+    suspend fun logout(): Unit
 }
