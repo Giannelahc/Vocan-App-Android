@@ -1,6 +1,7 @@
 package com.example.vocanapp.data.session
 
 import com.example.vocanapp.data.local.TokenStorage
+import com.example.vocanapp.domain.usecase.GetCurrentUserUseCase
 import com.example.vocanapp.presentation.session.SessionState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,19 +22,28 @@ class SessionManager @Inject constructor(
 
     suspend fun initialize() {
 
-        val token = tokenStorage.getToken()
+        val accessToken = tokenStorage.getToken()
+        val refreshToken = tokenStorage.getRefreshToken()
 
         _sessionState.value =
-            if (token.isNullOrBlank()) {
+            if (
+                accessToken.isNullOrBlank() ||
+                refreshToken.isNullOrBlank()
+            ) {
                 SessionState.LoggedOut
             } else {
                 SessionState.LoggedIn
             }
     }
 
-    suspend fun login(token: String) {
-
-        tokenStorage.saveToken(token)
+    suspend fun login(
+        token: String,
+        refreshToken: String
+    ) {
+        tokenStorage.saveToken(
+            token = token,
+            refreshToken = refreshToken
+        )
 
         _sessionState.value =
             SessionState.LoggedIn
@@ -47,8 +57,12 @@ class SessionManager @Inject constructor(
             SessionState.LoggedOut
     }
 
-    fun onUnauthorized() {
+    fun setLoggedIn() {
+        _sessionState.value =
+            SessionState.LoggedIn
+    }
 
+    fun setLoggedOut() {
         _sessionState.value =
             SessionState.LoggedOut
     }

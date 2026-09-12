@@ -41,7 +41,8 @@ class LoginViewModel @Inject constructor(
                 )
 
                 sessionManager.login(
-                    result.accessToken
+                    result.accessToken,
+                    result.refreshToken
                 )
 
                 uiState = uiState.copy(

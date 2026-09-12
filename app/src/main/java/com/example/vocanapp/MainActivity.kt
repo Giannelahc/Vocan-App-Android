@@ -13,10 +13,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val notificationDestination =
+            intent.getStringExtra("destination")
+
         enableEdgeToEdge()
         setContent {
             VocanAppTheme {
-                VocanApp()
+                VocanApp(notificationDestination = notificationDestination)
             }
         }
     }

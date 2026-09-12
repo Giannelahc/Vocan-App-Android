@@ -15,12 +15,6 @@ class SessionViewModel @Inject constructor(
     val sessionState =
         sessionManager.sessionState
 
-    init {
-        viewModelScope.launch {
-            sessionManager.initialize()
-        }
-    }
-
     fun logout() {
         viewModelScope.launch {
             sessionManager.logout()

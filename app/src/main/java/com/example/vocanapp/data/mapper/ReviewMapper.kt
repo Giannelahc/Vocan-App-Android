@@ -4,6 +4,7 @@ import com.example.vocanapp.data.model.review.CompleteReviewRequest
 import com.example.vocanapp.data.model.review.ExerciseResponse
 import com.example.vocanapp.data.model.review.ReviewDetailResponse
 import com.example.vocanapp.data.model.review.ReviewHomeResponse
+import com.example.vocanapp.data.model.review.ReviewNotificationSummaryResponse
 import com.example.vocanapp.data.model.review.ReviewResultResponse
 import com.example.vocanapp.data.model.review.ReviewStatisticsResponse
 import com.example.vocanapp.data.model.review.ReviewSummaryPaginatedResponse
@@ -12,6 +13,7 @@ import com.example.vocanapp.domain.model.CompleteReview
 import com.example.vocanapp.domain.model.Exercise
 import com.example.vocanapp.domain.model.ReviewDetail
 import com.example.vocanapp.domain.model.ReviewHome
+import com.example.vocanapp.domain.model.ReviewNotificationSummary
 import com.example.vocanapp.domain.model.ReviewResult
 import com.example.vocanapp.domain.model.ReviewStatistics
 import com.example.vocanapp.domain.model.ReviewStatus
@@ -82,4 +84,12 @@ fun CompleteReview.toRequest(): CompleteReviewRequest =
     CompleteReviewRequest(
         id = id,
         answer = answer
+    )
+
+fun ReviewNotificationSummaryResponse.toDomain(): ReviewNotificationSummary =
+    ReviewNotificationSummary(
+        totalPending = totalPending,
+        todayReviews = todayReviews,
+        overdueReviews = overdueReviews,
+        userName = userName
     )

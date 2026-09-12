@@ -1,5 +1,6 @@
 package com.example.vocanapp.di
 
+import com.example.vocanapp.data.local.TokenAuthenticator
 import com.example.vocanapp.data.remote.AuthApi
 import com.example.vocanapp.data.remote.AuthInterceptor
 import com.example.vocanapp.data.remote.LanguageApi
@@ -13,6 +14,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,10 +37,23 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor,
+        tokenAuthenticator: TokenAuthenticator
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .authenticator(tokenAuthenticator)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @AuthClient
+    fun provideAuthOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
     }
@@ -64,11 +79,32 @@ object NetworkModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    @AuthRetrofit
+    fun provideAuthRetrofit(
+        @AuthClient okHttpClient: OkHttpClient
+    ): Retrofit {
+
+        val gson = GsonBuilder()
+            .setFieldNamingPolicy(
+                FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
+            )
+            .create()
+
+        return Retrofit.Builder()
+            .baseUrl("http://127.0.0.1:8000/vocan-agent/")
+            .client(okHttpClient)
+            .addConverterFactory(
+                GsonConverterFactory.create(gson)
+            )
+            .build()
+    }
 
     @Provides
     @Singleton
     fun provideAuthApi(
-        retrofit: Retrofit
+        @AuthRetrofit retrofit: Retrofit
     ): AuthApi {
         return retrofit.create(AuthApi::class.java)
     }

@@ -1,9 +1,9 @@
 package com.example.vocanapp.data.repository
 
-import com.example.vocanapp.data.local.TokenStorage
 import com.example.vocanapp.data.model.login.LoginRequest
 import com.example.vocanapp.data.model.register.RegisterUserRequest
 import com.example.vocanapp.data.remote.AuthApi
+import com.example.vocanapp.data.remote.UserApi
 import com.example.vocanapp.domain.model.LoginResult
 import com.example.vocanapp.domain.model.RegisterResult
 import com.example.vocanapp.domain.model.User
@@ -11,7 +11,8 @@ import com.example.vocanapp.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val authApi: AuthApi
+    private val authApi: AuthApi,
+    private val userApi: UserApi
 ) : AuthRepository {
 
     override suspend fun login(
@@ -27,6 +28,7 @@ class AuthRepositoryImpl @Inject constructor(
         )
         return LoginResult(
             accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
             tokenType = response.tokenType
         )
     }
@@ -40,6 +42,6 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout() {
-        authApi.logout()
+        userApi.logout()
     }
 }

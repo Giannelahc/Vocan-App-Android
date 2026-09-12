@@ -10,7 +10,9 @@ import com.example.vocanapp.presentation.session.SessionState
 import com.example.vocanapp.presentation.session.SessionViewModel
 
 @Composable
-fun VocanApp() {
+fun VocanApp(
+    notificationDestination: String? = null
+) {
 
     val viewModel: SessionViewModel = hiltViewModel()
 
@@ -27,7 +29,9 @@ fun VocanApp() {
         }
 
         SessionState.LoggedIn -> {
-            MainNavHost()
+            MainNavHost(
+                initialDestination = notificationDestination
+            )
         }
     }
 }

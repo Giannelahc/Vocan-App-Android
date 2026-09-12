@@ -6,6 +6,7 @@ import com.example.vocanapp.data.remote.ReviewApi
 import com.example.vocanapp.domain.model.CompleteReview
 import com.example.vocanapp.domain.model.ReviewDetail
 import com.example.vocanapp.domain.model.ReviewHome
+import com.example.vocanapp.domain.model.ReviewNotificationSummary
 import com.example.vocanapp.domain.model.ReviewResult
 import com.example.vocanapp.domain.model.ReviewSummaryPaginated
 import com.example.vocanapp.domain.repository.ReviewRepository
@@ -36,6 +37,10 @@ class ReviewRepositoryImpl @Inject constructor(
 
     override suspend fun completeReview(reviewId: Int, answers: List<CompleteReview>): ReviewResult {
         return api.completeReview(reviewId, answers.map { it.toRequest() }).toDomain()
+    }
+
+    override suspend fun getReviewNotificationSummary(): ReviewNotificationSummary {
+        return api.getReviewNotificationSummary().toDomain()
     }
 
 }

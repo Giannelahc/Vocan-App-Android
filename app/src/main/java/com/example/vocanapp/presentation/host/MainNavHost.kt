@@ -3,6 +3,7 @@ package com.example.vocanapp.presentation.host
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -20,9 +21,18 @@ import com.example.vocanapp.presentation.main.vocabulary.detail.VocabularyDetail
 import com.example.vocanapp.presentation.main.vocabulary.wordidentification.IdentifyWordsRoute
 
 @Composable
-fun MainNavHost() {
+fun MainNavHost(
+    initialDestination: String? = null
+) {
 
     val navController = rememberNavController()
+
+    LaunchedEffect(initialDestination) {
+
+        if (initialDestination == "review") {
+            navController.navigate("review")
+        }
+    }
 
     Scaffold (
         bottomBar = {

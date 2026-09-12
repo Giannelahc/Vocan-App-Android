@@ -3,6 +3,7 @@ package com.example.vocanapp.data.remote
 import com.example.vocanapp.data.model.review.CompleteReviewRequest
 import com.example.vocanapp.data.model.review.ReviewDetailResponse
 import com.example.vocanapp.data.model.review.ReviewHomeResponse
+import com.example.vocanapp.data.model.review.ReviewNotificationSummaryResponse
 import com.example.vocanapp.data.model.review.ReviewResultResponse
 import com.example.vocanapp.data.model.review.ReviewSummaryPaginatedResponse
 import retrofit2.http.Body
@@ -39,5 +40,8 @@ interface ReviewApi {
         @Path("reviewId") reviewId: Int,
         @Body request: List<CompleteReviewRequest>
     ): ReviewResultResponse
+
+    @GET("reviews/notification-summary")
+    suspend fun getReviewNotificationSummary(): ReviewNotificationSummaryResponse
 
 }

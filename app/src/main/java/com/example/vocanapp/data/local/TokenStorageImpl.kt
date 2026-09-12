@@ -14,12 +14,22 @@ class TokenStorageImpl @Inject constructor(
 
     companion object {
         private val ACCESS_TOKEN = stringPreferencesKey("access_token")
+        private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
     }
 
-    override suspend fun saveToken(token: String) {
+    override suspend fun saveToken(token: String, refreshToken: String) {
         dataStore.edit {
             preferences -> preferences[ACCESS_TOKEN] = token
+            preferences[REFRESH_TOKEN] = refreshToken
         }
+    }
+
+    override suspend fun getRefreshToken(): String? {
+        return dataStore.data
+            .map { preferences ->
+                preferences[REFRESH_TOKEN]
+            }
+            .first()
     }
 
     override suspend fun getToken(): String? {
@@ -33,6 +43,7 @@ class TokenStorageImpl @Inject constructor(
     override suspend fun clearToken() {
         dataStore.edit { preferences ->
             preferences.remove(ACCESS_TOKEN)
+            preferences.remove(REFRESH_TOKEN)
         }
     }
 }
