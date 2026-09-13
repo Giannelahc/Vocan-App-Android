@@ -32,9 +32,10 @@ class VocabularyRepositoryImpl @Inject constructor(
 
     override suspend fun addWord(
         word: String,
-        languageId: Int
+        languageId: Int,
+        regenerate: Boolean
     ): WordSummary {
-        val savedWord = api.registerWord(WordRequest(word, languageId))
+        val savedWord = api.registerWord(WordRequest(word, languageId), regenerate)
         return savedWord.toDomain()
     }
 
@@ -44,6 +45,10 @@ class VocabularyRepositoryImpl @Inject constructor(
     ): List<WordOption> {
         val wordOptions = api.identifyWordsFromASentence(SentenceRequest(text, languageId))
         return wordOptions.map { it.toDomain() }
+    }
+
+    override suspend fun deleteWord(wordId: Int) {
+        return api.deleteWord(wordId)
     }
 
 

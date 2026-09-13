@@ -7,6 +7,7 @@ import com.example.vocanapp.data.model.vocabulary.VocabularyWordSummaryResponse
 import com.example.vocanapp.data.model.vocabulary.WordOptionResponse
 import com.example.vocanapp.data.model.vocabulary.WordRequest
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -29,11 +30,17 @@ interface VocabularyApi {
 
     @POST("vocabulary/register-word")
     suspend fun registerWord(
-        @Body request: WordRequest
+        @Body request: WordRequest,
+        @Query("regenerate") regenerate: Boolean
     ): VocabularyWordSummaryResponse
 
     @POST("vocabulary/identify")
     suspend fun identifyWordsFromASentence(
         @Body request: SentenceRequest
     ): List<WordOptionResponse>
+
+    @DELETE("vocabulary/{word_id}")
+    suspend fun deleteWord(
+        @Path("word_id") wordId: Int
+    ): Unit
 }

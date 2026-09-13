@@ -5,15 +5,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,17 +32,28 @@ import com.example.vocanapp.presentation.main.vocabulary.detail.components.Vocab
 @Composable
 fun VocabularyDetailScreen(
     uiState: VocabularyDetailUiState,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onRegenerateContentClick: () -> Unit,
+    onDeleteWordClick: () -> Unit
 ) {
 
-    Scaffold (
+    var showMenu by remember {
+        mutableStateOf(false)
+    }
+
+    var showDeleteDialog by remember {
+        mutableStateOf(false)
+    }
+
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text("Vocabulary")
                 },
+
                 navigationIcon = {
-                    IconButton (
+                    IconButton(
                         onClick = onBackClick
                     ) {
                         Icon(
@@ -41,12 +61,57 @@ fun VocabularyDetailScreen(
                             contentDescription = "Back"
                         )
                     }
+                },
+
+                actions = {
+
+                    Box {
+                        IconButton(
+                            onClick = {
+                                showMenu = true
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = "More options"
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showMenu,
+                            onDismissRequest = {
+                                showMenu = false
+                            }
+                        ) {
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text("Regenerate content")
+                                },
+                                onClick = {
+                                    showMenu = false
+                                    onRegenerateContentClick()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text("Delete word")
+                                },
+                                onClick = {
+                                    showMenu = false
+                                    showDeleteDialog = true
+                                }
+                            )
+                        }
+                    }
                 }
             )
         }
     ) { innerPadding ->
 
         when {
+
             uiState.isLoading -> {
 
                 Box(
@@ -83,5 +148,45 @@ fun VocabularyDetailScreen(
                 )
             }
         }
+    }
+
+    if (showDeleteDialog) {
+
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteDialog = false
+            },
+
+            title = {
+                Text("Delete word?")
+            },
+
+            text = {
+                Text(
+                    "Are you sure you want to remove this word from your vocabulary?"
+                )
+            },
+
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteDialog = false
+                        onDeleteWordClick()
+                    }
+                ) {
+                    Text("Delete")
+                }
+            },
+
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteDialog = false
+                    }
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }

@@ -9,6 +9,7 @@ interface VocabularyRepository {
 
     suspend fun getWordList(languageId: Int? = null, search: String? = null, page: Int? = 1, pageSize: Int ?= 50): WordList
     suspend fun getWordDetailById(wordId: Int): Word
-    suspend fun addWord(word: String, languageId: Int): WordSummary
+    suspend fun addWord(word: String, languageId: Int, regenerate: Boolean): WordSummary
     suspend fun identifyWords(text: String, languageId: Int): List<WordOption>
+    suspend fun deleteWord(wordId: Int): Unit
 }

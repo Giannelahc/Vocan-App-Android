@@ -152,7 +152,7 @@ fun MainNavHost(
             composable(
                 route = "vocabulary/{wordId}",
                 arguments = listOf(
-                    navArgument ("wordId") {
+                    navArgument("wordId") {
                         type = NavType.IntType
                     }
                 )
@@ -164,7 +164,24 @@ fun MainNavHost(
 
                 VocabularyDetailRoute(
                     wordId = wordId,
+
                     onBackClick = {
+                        navController.popBackStack()
+                    },
+
+                    onContentRegenerated = {
+
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("content_regenerated", true)
+
+                        navController.popBackStack()
+                    },
+                    onWordDeleted = {
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("word_deleted", true)
+
                         navController.popBackStack()
                     }
                 )

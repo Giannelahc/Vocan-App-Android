@@ -9,6 +9,6 @@ class AddWordUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(word: String, languageId: Int): WordSummary {
-        return vocabularyRepository.addWord(word, languageId)
+        return vocabularyRepository.addWord(word, languageId, false)
     }
 }

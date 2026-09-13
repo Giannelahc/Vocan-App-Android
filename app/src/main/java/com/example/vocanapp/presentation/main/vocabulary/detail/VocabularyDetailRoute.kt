@@ -13,7 +13,9 @@ import com.example.vocanapp.presentation.main.vocabulary.VocabularyViewModel
 @Composable
 fun VocabularyDetailRoute(
     wordId: Int,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onContentRegenerated: () -> Unit,
+    onWordDeleted: () -> Unit
 ) {
 
     val viewModel: VocabularyDetailViewModel = hiltViewModel()
@@ -23,8 +25,32 @@ fun VocabularyDetailRoute(
         viewModel.loadWord(wordId)
     }
 
+    LaunchedEffect(Unit) {
+
+        viewModel.events.collect { event ->
+
+            when (event) {
+
+                VocabularyDetailEvent.ContentRegenerated -> {
+                    onContentRegenerated()
+                }
+
+                VocabularyDetailEvent.WordDeleted -> {
+                    onWordDeleted()
+                }
+            }
+        }
+    }
+
     VocabularyDetailScreen(
         uiState = uiState,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
+        onRegenerateContentClick = {
+            viewModel.regenerateContent()
+        },
+
+        onDeleteWordClick = {
+            viewModel.deleteWord()
+        }
     )
 }

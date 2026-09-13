@@ -1,9 +1,11 @@
 package com.example.vocanapp.presentation.main.vocabulary
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,6 +27,10 @@ fun VocabularyRoute(
 
     var showAddWordSheet by rememberSaveable {
         mutableStateOf(false)
+    }
+
+    val snackbarHostState = remember {
+        SnackbarHostState()
     }
 
     LaunchedEffect (Unit) {
@@ -59,6 +65,46 @@ fun VocabularyRoute(
                     navBackStackEntry
                         .savedStateHandle
                         .set("words_added", false)
+                }
+            }
+    }
+
+    LaunchedEffect(navBackStackEntry) {
+
+        navBackStackEntry
+            .savedStateHandle
+            .getStateFlow("content_regenerated", false)
+            .collect { regenerated ->
+
+                if (regenerated) {
+
+                    //viewModel.refreshWords()
+
+                    snackbarHostState.showSnackbar(
+                        message = "Content regenerated successfully"
+                    )
+
+                    navBackStackEntry
+                        .savedStateHandle
+                        .set("content_regenerated", false)
+                }
+            }
+    }
+
+    LaunchedEffect(navBackStackEntry) {
+
+        navBackStackEntry
+            .savedStateHandle
+            .getStateFlow("word_deleted", false)
+            .collect { deleted ->
+
+                if (deleted) {
+
+                    viewModel.refreshWords()
+
+                    navBackStackEntry
+                        .savedStateHandle
+                        .set("word_deleted", false)
                 }
             }
     }
@@ -102,6 +148,7 @@ fun VocabularyRoute(
         onAddWordDismiss = {
             showAddWordSheet = false
         },
-        onIdentifyWordsClick = onIdentifyWordsClick
+        onIdentifyWordsClick = onIdentifyWordsClick,
+        snackbarHostState = snackbarHostState
     )
 }
