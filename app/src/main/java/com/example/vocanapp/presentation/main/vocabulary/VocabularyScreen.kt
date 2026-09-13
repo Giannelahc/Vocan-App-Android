@@ -64,6 +64,12 @@ fun VocabularyScreen(
 ) {
     val listState = rememberLazyListState()
 
+    LaunchedEffect(uiState.refreshTrigger) {
+        if (uiState.refreshTrigger > 0) {
+            listState.scrollToItem(0)
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(

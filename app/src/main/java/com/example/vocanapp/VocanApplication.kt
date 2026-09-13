@@ -48,7 +48,7 @@ class VocanApplication : Application(),
                     .collect { state ->
                         when (state) {
                             SessionState.LoggedIn -> {
-                                reviewNotificationScheduler.scheduleTest()//reviewNotificationScheduler.schedule()
+                                reviewNotificationScheduler.schedule()
                             }
 
                             SessionState.LoggedOut -> {

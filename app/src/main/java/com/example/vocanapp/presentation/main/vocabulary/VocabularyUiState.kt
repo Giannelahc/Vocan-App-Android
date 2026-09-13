@@ -13,6 +13,7 @@ data class VocabularyUiState(
     val pageSize: Int = 50,
     val isLoading: Boolean = false,
     val isLoadingMore: Boolean = false,
+    val refreshTrigger: Int = 0,
     val hasMore: Boolean = true,
     val error: String? = null
 )

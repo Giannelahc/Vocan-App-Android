@@ -58,8 +58,9 @@ fun MainNavHost(
                 )
             }
 
-            composable("vocabulary") {
-                VocabularyRoute (
+            composable("vocabulary") { backStackEntry ->
+                VocabularyRoute(
+                    navBackStackEntry = backStackEntry,
                     onWordClick = { wordId ->
                         navController.navigate(
                             "vocabulary/$wordId"
@@ -77,6 +78,10 @@ fun MainNavHost(
                         navController.popBackStack()
                     },
                     onWordsAdded = {
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("words_added", true)
+
                         navController.popBackStack()
                     }
                 )

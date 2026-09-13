@@ -273,7 +273,13 @@ class VocabularyViewModel @Inject constructor(
                 totalWords = response.total,
                 currentPage = response.page,
                 hasMore =
-                    response.page * response.pageSize < response.total
+                    response.page * response.pageSize < response.total,
+                refreshTrigger =
+                    if (isInitialLoad) {
+                        uiState.refreshTrigger + 1
+                    } else {
+                        uiState.refreshTrigger
+                    }
             )
 
         } catch (e: Exception) {

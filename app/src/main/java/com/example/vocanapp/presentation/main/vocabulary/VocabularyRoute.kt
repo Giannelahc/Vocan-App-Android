@@ -7,11 +7,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import com.example.vocan.presentation.auth.login.VocabularyScreen
 import com.example.vocanapp.presentation.main.vocabulary.components.addWord.VocabularyEvent
 
 @Composable
 fun VocabularyRoute(
+    navBackStackEntry: NavBackStackEntry,
     onWordClick: (Int) -> Unit,
     onIdentifyWordsClick: () -> Unit
 ) {
@@ -41,6 +43,24 @@ fun VocabularyRoute(
                 }
             }
         }
+    }
+
+    LaunchedEffect(navBackStackEntry) {
+
+        navBackStackEntry
+            .savedStateHandle
+            .getStateFlow("words_added", false)
+            .collect { wordsAdded ->
+
+                if (wordsAdded) {
+
+                    viewModel.refreshWords()
+
+                    navBackStackEntry
+                        .savedStateHandle
+                        .set("words_added", false)
+                }
+            }
     }
 
     VocabularyScreen(

@@ -30,6 +30,10 @@ class HomeViewModel @Inject constructor(
         loadUser()
     }
 
+    fun refresh() {
+        loadUser()
+    }
+
     private fun loadUser() {
 
         viewModelScope.launch {
@@ -43,7 +47,6 @@ class HomeViewModel @Inject constructor(
 
                 val user = getCurrentUserUseCase()
                 val home = getHomeInfoUseCase()
-
                 uiState = uiState.copy(
                     isLoading = false,
                     home = home

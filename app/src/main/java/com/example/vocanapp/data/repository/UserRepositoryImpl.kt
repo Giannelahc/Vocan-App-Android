@@ -18,6 +18,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getHomeInfo(): HomeInfo {
         val homeInfo = api.getHomeSummary()
+        println(homeInfo.toString())
         return homeInfo.toDomain()
     }
 

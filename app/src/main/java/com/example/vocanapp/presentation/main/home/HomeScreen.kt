@@ -96,7 +96,7 @@ fun HomeScreen(
                 ) {
 
                     Text(
-                        text = uiState.home?.newWordsCurrentWeek.toString(),
+                        text = "${uiState.home?.newWordsCurrentWeek}",
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.primary
                     )
