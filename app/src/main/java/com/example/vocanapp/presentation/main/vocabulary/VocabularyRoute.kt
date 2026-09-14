@@ -149,6 +149,9 @@ fun VocabularyRoute(
             showAddWordSheet = false
         },
         onIdentifyWordsClick = onIdentifyWordsClick,
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        onDeleteWord = { wordId ->
+            viewModel.deleteWord(wordId)
+        }
     )
 }

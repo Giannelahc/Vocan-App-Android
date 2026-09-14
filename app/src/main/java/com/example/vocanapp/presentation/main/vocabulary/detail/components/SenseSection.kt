@@ -17,7 +17,8 @@ import com.example.vocanapp.domain.model.WordSense
 
 @Composable
 fun SenseSection(
-    sense: WordSense
+    sense: WordSense,
+    onAddExamplesClick: (Int) -> Unit
 ) {
 
     Column (
@@ -54,7 +55,7 @@ fun SenseSection(
 
         if (sense.examples.isNotEmpty()) {
             ExamplesSection(
-                examples = sense.examples
+                examples = sense.examples.map { it.sentence }
             )
         }
 
@@ -69,5 +70,14 @@ fun SenseSection(
                 conjugation = it
             )
         }
+
+        ExamplesSection(
+            title = "My examples",
+            examples = sense.userExamples?.map { it.sentence } ?: emptyList(),
+            onAddClick = {
+                onAddExamplesClick(sense.id)
+            }
+        )
+
     }
 }

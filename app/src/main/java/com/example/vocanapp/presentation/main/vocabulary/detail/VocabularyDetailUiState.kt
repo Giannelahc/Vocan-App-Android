@@ -6,5 +6,6 @@ data class VocabularyDetailUiState(
     val word: Word? = null,
     val isLoading: Boolean = false,
     val hasMore: Boolean = true,
-    val error: String? = null
+    val error: String? = null,
+    val addExamplesSenseId: Int? = null,
 )

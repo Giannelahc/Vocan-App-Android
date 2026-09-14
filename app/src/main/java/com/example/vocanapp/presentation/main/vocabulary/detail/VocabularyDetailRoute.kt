@@ -9,6 +9,7 @@ import com.example.vocan.presentation.auth.register.RegisterScreen
 import com.example.vocanapp.presentation.auth.register.RegisterViewModel
 import com.example.vocanapp.presentation.main.home.HomeViewModel
 import com.example.vocanapp.presentation.main.vocabulary.VocabularyViewModel
+import com.example.vocanapp.presentation.main.vocabulary.detail.components.addUserExamples.AddUserExamplesBottomSheet
 
 @Composable
 fun VocabularyDetailRoute(
@@ -20,6 +21,7 @@ fun VocabularyDetailRoute(
 
     val viewModel: VocabularyDetailViewModel = hiltViewModel()
     val uiState = viewModel.uiState
+    val addExamplesUiState = viewModel.addExamplesUiState
 
     LaunchedEffect(wordId) {
         viewModel.loadWord(wordId)
@@ -51,6 +53,37 @@ fun VocabularyDetailRoute(
 
         onDeleteWordClick = {
             viewModel.deleteWord()
+        },
+        onAddExamplesClick = { senseId ->
+            viewModel.openAddExamples(senseId)
         }
     )
+
+    if (uiState.addExamplesSenseId != null) {
+
+        AddUserExamplesBottomSheet(
+            examples = addExamplesUiState.examples,
+
+            isSaving = addExamplesUiState.isSaving,
+
+            onExampleChanged = { index, value ->
+                viewModel.updateExample(
+                    index = index,
+                    value = value
+                )
+            },
+
+            onAddExample = {
+                viewModel.addExampleField()
+            },
+
+            onSave = {
+                viewModel.saveExamples()
+            },
+
+            onDismiss = {
+                viewModel.closeAddExamples()
+            }
+        )
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.vocanapp.data.remote
 
+import com.example.vocanapp.data.model.vocabulary.UserExampleRequest
 import com.example.vocanapp.data.model.vocabulary.SentenceRequest
+import com.example.vocanapp.data.model.vocabulary.UserExampleResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyListResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordResponse
 import com.example.vocanapp.data.model.vocabulary.VocabularyWordSummaryResponse
@@ -43,4 +45,10 @@ interface VocabularyApi {
     suspend fun deleteWord(
         @Path("word_id") wordId: Int
     ): Unit
+
+    @POST("vocabulary/{word_sense_id}/examples")
+    suspend fun registerUserExamples(
+        @Path("word_sense_id") wordSenseId: Int,
+        @Body request: UserExampleRequest
+    ): List<UserExampleResponse>
 }

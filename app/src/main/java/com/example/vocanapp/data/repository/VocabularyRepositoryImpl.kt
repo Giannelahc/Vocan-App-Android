@@ -2,8 +2,10 @@ package com.example.vocanapp.data.repository
 
 import com.example.vocanapp.data.mapper.toDomain
 import com.example.vocanapp.data.model.vocabulary.SentenceRequest
+import com.example.vocanapp.data.model.vocabulary.UserExampleRequest
 import com.example.vocanapp.data.model.vocabulary.WordRequest
 import com.example.vocanapp.data.remote.VocabularyApi
+import com.example.vocanapp.domain.model.UserExample
 import com.example.vocanapp.domain.model.Word
 import com.example.vocanapp.domain.model.WordList
 import com.example.vocanapp.domain.model.WordOption
@@ -49,6 +51,10 @@ class VocabularyRepositoryImpl @Inject constructor(
 
     override suspend fun deleteWord(wordId: Int) {
         return api.deleteWord(wordId)
+    }
+
+    override suspend fun registerUserExamples(wordSenseId: Int, examples: List<String>): List<UserExample> {
+        return api.registerUserExamples(wordSenseId, UserExampleRequest(examples)).map { it.toDomain() }
     }
 
 

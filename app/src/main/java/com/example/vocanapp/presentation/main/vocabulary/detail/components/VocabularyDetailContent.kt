@@ -12,7 +12,8 @@ import com.example.vocanapp.domain.model.Word
 @Composable
 fun VocabularyDetailContent(
     word: Word,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAddExamplesClick: (Int) -> Unit
 ) {
 
     LazyColumn (
@@ -31,7 +32,7 @@ fun VocabularyDetailContent(
         word.senses.forEach { sense ->
 
             item {
-                SenseSection(sense)
+                SenseSection(sense, onAddExamplesClick)
             }
         }
     }

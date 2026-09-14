@@ -34,7 +34,8 @@ fun VocabularyDetailScreen(
     uiState: VocabularyDetailUiState,
     onBackClick: () -> Unit,
     onRegenerateContentClick: () -> Unit,
-    onDeleteWordClick: () -> Unit
+    onDeleteWordClick: () -> Unit,
+    onAddExamplesClick: (Int) -> Unit
 ) {
 
     var showMenu by remember {
@@ -144,7 +145,8 @@ fun VocabularyDetailScreen(
 
                 VocabularyDetailContent(
                     word = uiState.word,
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(innerPadding),
+                    onAddExamplesClick = onAddExamplesClick
                 )
             }
         }

@@ -11,10 +11,12 @@ import javax.inject.Inject
 import android.util.Log
 import com.example.vocanapp.domain.model.Language
 import com.example.vocanapp.domain.usecase.AddWordUseCase
+import com.example.vocanapp.domain.usecase.DeleteWordUseCase
 import com.example.vocanapp.domain.usecase.GetLanguagesListUseCase
 import com.example.vocanapp.domain.usecase.GetWordsListUseCase
 import com.example.vocanapp.presentation.main.vocabulary.components.addWord.AddWordUiState
 import com.example.vocanapp.presentation.main.vocabulary.components.addWord.VocabularyEvent
+import com.example.vocanapp.presentation.main.vocabulary.detail.VocabularyDetailEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,6 +28,7 @@ class VocabularyViewModel @Inject constructor(
     private val getWordsListUseCase: GetWordsListUseCase,
     private val getLanguagesListUseCase: GetLanguagesListUseCase,
     private val addWordUseCase: AddWordUseCase,
+    private val deleteWordUseCase: DeleteWordUseCase
 ) : ViewModel() {
 
     var uiState by mutableStateOf(VocabularyUiState())
@@ -295,6 +298,28 @@ class VocabularyViewModel @Inject constructor(
                 isLoadingMore = false,
                 error = e.message
             )
+        }
+    }
+
+    fun deleteWord(wordId: Int) {
+        viewModelScope.launch {
+            try {
+
+                deleteWordUseCase(wordId)
+
+                refreshWords()
+
+            } catch (e: Exception) {
+                Log.e(
+                    "DELETE_WORD_ERROR",
+                    "Delete word error",
+                    e
+                )
+
+                uiState = uiState.copy(
+                    error = e.message
+                )
+            }
         }
     }
 
