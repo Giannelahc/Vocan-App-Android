@@ -11,7 +11,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @Composable
 fun HomeRoute(
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onReviewClick: () -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState = viewModel.uiState
@@ -48,6 +49,7 @@ fun HomeRoute(
     }
 
     HomeScreen(
-        uiState = uiState
+        uiState = uiState,
+        onReviewClick = onReviewClick
     )
 }

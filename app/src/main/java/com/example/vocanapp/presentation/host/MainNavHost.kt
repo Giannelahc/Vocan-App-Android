@@ -54,6 +54,9 @@ fun MainNavHost(
                         navController.navigate("profile") {
                             launchSingleTop = true
                         }
+                    },
+                    onReviewClick = {
+                        navController.navigate("review")
                     }
                 )
             }

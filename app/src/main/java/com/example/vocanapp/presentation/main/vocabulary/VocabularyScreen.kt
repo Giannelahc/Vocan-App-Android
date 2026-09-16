@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -46,6 +48,8 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Language
 import com.example.vocanapp.domain.model.WordSummary
@@ -92,10 +96,12 @@ fun VocabularyScreen(
     }
 
     Scaffold(
+        //containerColor = Color(0xFFFCFEFF),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddWordClick,
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = Color(0xFF426F8F),
+                contentColor = Color(0xFFEEF3F7)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -121,32 +127,40 @@ fun VocabularyScreen(
                 modifier = Modifier.height(8.dp)
             )
 
-            Text(
-                text = "Vocabulary",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Top
+            ) {
 
-            Text(
-                text = "${uiState.totalWords} words",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+
+                    Text(
+                        text = "Vocabulary",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Text(
+                        text = "${uiState.totalWords} words",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                LanguageSelector(
+                    selectedLanguage = uiState.selectedLanguage,
+                    languages = uiState.languages,
+                    onLanguageSelected = onLanguageSelected,
+                    compact = true
+                )
+            }
 
             Spacer(
                 modifier = Modifier.height(20.dp)
-            )
-
-            // Language selector
-
-            LanguageSelector (
-                selectedLanguage = uiState.selectedLanguage,
-                languages = uiState.languages,
-                onLanguageSelected = onLanguageSelected
-            )
-
-            Spacer(
-                modifier = Modifier.height(12.dp)
             )
 
             // Search
@@ -169,11 +183,17 @@ fun VocabularyScreen(
             )
 
             Spacer(
-                modifier = Modifier.height(16.dp)
+                modifier = Modifier.height(13.dp)
             )
 
             TextButton (
-                onClick = onIdentifyWordsClick
+                onClick = onIdentifyWordsClick,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(13.dp),
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = Color(0xFF426F8F),
+                    contentColor = Color(0xFFEEF3F7)
+                )
             ) {
                 Icon(
                     imageVector = Icons.Default.AutoAwesome,
@@ -184,6 +204,10 @@ fun VocabularyScreen(
 
                 Text("Identify words")
             }
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+            )
 
             // Word list
 

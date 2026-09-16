@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.profile.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,10 +36,12 @@ fun ProfilePreferenceItem(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = onClick),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(
-            alpha = 0.45f
+        shape = RoundedCornerShape(16.dp),
+        color = Color(0xFFEEF3F7),
+        border = BorderStroke(
+            1.dp,
+            Color(0xFF8FB2CC)
         )
     ) {
 

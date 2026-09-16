@@ -8,10 +8,13 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
@@ -24,17 +27,17 @@ fun MainNavigationBar(
     val currentRoute =
         currentBackStackEntry?.destination?.route
 
-    NavigationBar {
+    NavigationBar(
+        containerColor = Color(0xFF386585)
+    ) {
 
         NavigationBarItem(
             selected = currentRoute == "home",
             onClick = {
-                navController.navigate("home") {
-                    popUpTo("home") {
-                        saveState = true
+                if (!navController.popBackStack("home", false)) {
+                    navController.navigate("home") {
+                        launchSingleTop = true
                     }
-                    launchSingleTop = true
-                    restoreState = true
                 }
             },
             icon = {
@@ -45,7 +48,14 @@ fun MainNavigationBar(
             },
             label = {
                 Text("Home")
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                indicatorColor = Color.Transparent
+            )
         )
 
         NavigationBarItem(
@@ -67,7 +77,14 @@ fun MainNavigationBar(
             },
             label = {
                 Text("Vocabulary")
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                indicatorColor = Color.Transparent
+            )
         )
 
         NavigationBarItem(
@@ -89,7 +106,14 @@ fun MainNavigationBar(
             },
             label = {
                 Text("Review")
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                indicatorColor = Color.Transparent
+            )
         )
 
         NavigationBarItem(
@@ -111,7 +135,14 @@ fun MainNavigationBar(
             },
             label = {
                 Text("Profile")
-            }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                indicatorColor = Color.Transparent
+            )
         )
     }
 }

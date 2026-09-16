@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Exercise
 
@@ -42,22 +45,23 @@ fun ReviewExerciseContent(
         ) {
 
             Spacer(
-                modifier = Modifier.height(24.dp)
+                modifier = Modifier.height(5.dp)
             )
 
             Text(
                 text = "Exercise $exerciseNumber of $totalExercises",
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.primary
             )
 
             Spacer(
-                modifier = Modifier.height(24.dp)
+                modifier = Modifier.height(20.dp)
             )
 
             Text(
                 text = exercise.question,
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.titleLarge
             )
 
             Spacer(
@@ -99,7 +103,11 @@ fun ReviewExerciseContent(
                 .padding(
                     top = 12.dp,
                     bottom = 24.dp
-                )
+                ),
+            colors = ButtonDefaults.textButtonColors(
+                containerColor = Color(0xFF426F8F),
+                contentColor = Color(0xFFEEF3F7)
+            )
         ) {
             Text(
                 text = if (isLastExercise) {

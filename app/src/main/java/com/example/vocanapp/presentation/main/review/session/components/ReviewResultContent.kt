@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.review.session.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,18 +9,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.vocanapp.R
 import com.example.vocanapp.domain.model.ReviewResult
 import com.example.vocanapp.domain.model.ReviewStatus
 import com.example.vocanapp.presentation.util.formatReviewDate
@@ -42,16 +49,25 @@ fun ReviewResultContent(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Icon(
-            imageVector = if (completed) {
-                Icons.Default.CheckCircle
-            } else {
-                Icons.Default.Refresh
-            },
-            contentDescription = null,
-            modifier = Modifier.size(72.dp),
-            tint = MaterialTheme.colorScheme.primary
-        )
+        if (completed) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.gato_bien_hecho
+                ),
+                contentDescription = "Happy cat",
+                modifier = Modifier.size(160.dp)
+            )
+
+        } else {
+
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = null,
+                modifier = Modifier.size(72.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
 
         Spacer(
             modifier = Modifier.height(20.dp)
@@ -63,7 +79,8 @@ fun ReviewResultContent(
             } else {
                 "Keep practicing!"
             },
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(
@@ -89,7 +106,7 @@ fun ReviewResultContent(
             text = "Next review at ${result.nextReviewAt.formatReviewDate()}",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = Color(0xFF426F8F)
         )
 
         Spacer(
@@ -98,7 +115,11 @@ fun ReviewResultContent(
 
         Button(
             onClick = onDoneClick,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.width(90.dp),
+            colors = ButtonDefaults.textButtonColors(
+                containerColor = Color(0xFF426F8F),
+                contentColor = Color(0xFFEEF3F7)
+            )
         ) {
             Text("Done")
         }

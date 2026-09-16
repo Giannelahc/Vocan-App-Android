@@ -26,30 +26,19 @@ class HomeViewModel @Inject constructor(
     private val _events = MutableSharedFlow<HomeEvent>()
     val events = _events.asSharedFlow()
 
-    init {
-        loadUser()
-    }
-
     fun refresh() {
-        loadUser()
-    }
-
-    private fun loadUser() {
 
         viewModelScope.launch {
-
-            uiState = uiState.copy(
-                isLoading = true,
-                error = null
-            )
 
             try {
 
                 val user = getCurrentUserUseCase()
                 val home = getHomeInfoUseCase()
+
                 uiState = uiState.copy(
                     isLoading = false,
-                    home = home
+                    home = home,
+                    error = null
                 )
 
                 if (user.preference == null) {
@@ -60,7 +49,13 @@ class HomeViewModel @Inject constructor(
                 }
 
             } catch (e: Exception) {
-                Log.e("LOAD USER ERROR", "Load user error", e)
+
+                Log.e(
+                    "LOAD HOME ERROR",
+                    "Load home error",
+                    e
+                )
+
                 uiState = uiState.copy(
                     isLoading = false,
                     error = e.message

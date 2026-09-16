@@ -1,10 +1,13 @@
 package com.example.vocanapp.presentation.main.vocabulary.detail.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Synonym
 
@@ -28,7 +31,14 @@ fun SynonymsSection(
                     onClick = {},
                     label = {
                         Text(synonym.word)
-                    }
+                    },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = Color(0xFFEEF3F7)
+                    ),
+                    border = BorderStroke(
+                        1.dp,
+                        Color(0xFF8FB2CC)
+                    )
                 )
             }
         }

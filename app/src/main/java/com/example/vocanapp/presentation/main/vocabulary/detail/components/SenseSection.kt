@@ -26,13 +26,16 @@ fun SenseSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        HorizontalDivider()
+        HorizontalDivider(
+            color = Color(0xFF8FB2CC),
+            thickness = 2.dp
+        )
 
         Text(
             text = sense.grammarType
                 .replace("_", " ")
                 .replaceFirstChar { it.uppercase() },
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.primary
         )

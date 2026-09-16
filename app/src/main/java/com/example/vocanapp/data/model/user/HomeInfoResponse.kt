@@ -6,7 +6,8 @@ data class HomeInfoResponse (
     val name: String,
     val lastname: String,
     val username: String,
-    val newWordsCurrentWeek: Int,
-    val learnedWords: Int
+    val languageStatistics: List<LanguageStatisticsResponse>,
+    val streak: Int,
+    val todayReviews: Int
 
 )

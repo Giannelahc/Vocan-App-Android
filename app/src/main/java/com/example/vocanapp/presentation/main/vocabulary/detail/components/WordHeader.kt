@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.vocabulary.detail.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Word
@@ -37,7 +39,11 @@ fun WordHeader(
 
             Surface (
                 shape = RoundedCornerShape(10.dp),
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = Color(0xFFEEF3F7),
+                border = BorderStroke(
+                    1.dp,
+                    Color(0xFF8FB2CC)
+                )
             ) {
                 Text(
                     text = word.status,
@@ -46,6 +52,7 @@ fun WordHeader(
                         vertical = 6.dp
                     ),
                     style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }

@@ -18,6 +18,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.presentation.main.review.components.EmptyReviewsCard
 import com.example.vocanapp.presentation.main.review.components.ReviewStatisticsSection
@@ -40,18 +41,20 @@ fun ReviewHomeScreen(
         ) {
 
             Spacer(
-                modifier = Modifier.height(20.dp)
+                modifier = Modifier.height(8.dp)
             )
 
             Text(
                 text = "Reviews",
                 style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
 
             Text(
                 text = "Keep improving your vocabulary",
                 style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
@@ -75,7 +78,7 @@ fun ReviewHomeScreen(
 
                 Text(
                     text = "Your reviews",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleMedium
                 )
 
                 TextButton(

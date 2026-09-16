@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.profile.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Language
 
@@ -97,9 +101,6 @@ fun LearningLanguagesBottomSheet(
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(
-                                RoundedCornerShape(12.dp)
-                            )
                             .clickable {
 
                                 temporarySelection =
@@ -114,12 +115,16 @@ fun LearningLanguagesBottomSheet(
                                         temporarySelection + language
                                     }
                             },
-
+                        shape = RoundedCornerShape(12.dp),
                         color = if (selected) {
-                            MaterialTheme.colorScheme.primaryContainer
+                            Color(0xFFBFD6DE)
                         } else {
-                            MaterialTheme.colorScheme.surface
-                        }
+                            Color(0xFFEEF3F7)
+                        },
+                        border = BorderStroke(
+                            1.dp,
+                            Color(0xFF8FB2CC)
+                        )
                     ) {
 
                         Row(
@@ -168,7 +173,12 @@ fun LearningLanguagesBottomSheet(
 
                                             temporarySelection + language
                                         }
-                                }
+                                },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = Color(0xFF426F8F),
+                                    uncheckedColor = MaterialTheme.colorScheme
+                                        .onSurfaceVariant
+                                ),
                             )
                         }
                     }
@@ -184,7 +194,11 @@ fun LearningLanguagesBottomSheet(
                     onDone(temporarySelection)
                 },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(14.dp)
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = Color(0xFF426F8F),
+                    contentColor = Color(0xFFEEF3F7)
+                )
             ) {
                 Text("Done")
             }

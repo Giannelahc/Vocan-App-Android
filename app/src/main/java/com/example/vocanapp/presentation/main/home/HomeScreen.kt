@@ -3,132 +3,130 @@ package com.example.vocan.presentation.auth.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.presentation.main.home.HomeUiState
+import com.example.vocanapp.presentation.main.home.components.LearningProgressCard
+import com.example.vocanapp.presentation.main.home.components.NewWordsCard
+import com.example.vocanapp.presentation.main.home.components.StreakCard
+import com.example.vocanapp.presentation.main.home.components.TodayReviewCard
 
 @Composable
 fun HomeScreen(
-    uiState: HomeUiState
+    uiState: HomeUiState,
+    onReviewClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
-    if (uiState.isLoading) {
+    Scaffold(
+        modifier = modifier
+    ) { innerPadding ->
 
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
+        if (uiState.isLoading) {
 
-        return
-    }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp),
+        } else if (uiState.error != null) {
 
-        contentPadding = PaddingValues(
-            top = 24.dp,
-            bottom = 32.dp
-        ),
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = uiState.error,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
 
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
+        } else {
 
-        item {
-
-            Text(
-                text = "Hi, ${uiState.home?.username} 👋",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(
-                modifier = Modifier.height(4.dp)
-            )
-
-            Text(
-                text = "Ready to learn something new?",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-
-        item {
-
-            Spacer(
-                modifier = Modifier.height(4.dp)
-            )
-
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor =
-                        MaterialTheme.colorScheme.primaryContainer
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(
+                    top = 16.dp,
+                    bottom = 24.dp
                 )
             ) {
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                // Greeting
+
+                item {
 
                     Text(
-                        text = "${uiState.home?.newWordsCurrentWeek}",
-                        style = MaterialTheme.typography.displaySmall,
+                        text = "Welcome back, ${uiState.home?.name}!",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
+                }
 
-                    Spacer(
-                        modifier = Modifier.height(4.dp)
-                    )
+                // Streak
 
-                    Text(
-                        text = "NEW WORDS",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                item {
 
-                    Text(
-                        text = "this week",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    StreakCard(
+                        streak = uiState.home!!.streak
                     )
                 }
+
+                // Learning progress
+
+                item {
+
+                    LearningProgressCard(
+                        statistics = uiState.home!!.languageStatistics
+                    )
+                }
+
+                // Today's review + New words
+
+                item {
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+
+                        TodayReviewCard(
+                            reviewCount = uiState.home!!.todayReviews,
+                            onClick = onReviewClick,
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        NewWordsCard(
+                            statistics = uiState.home.languageStatistics,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
             }
-        }
-
-        item {
-
-            Text(
-                text = "${uiState.home?.learnedWords} words learned",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
         }
     }
 }
