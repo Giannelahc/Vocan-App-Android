@@ -78,7 +78,7 @@ fun VocabularyScreen(
 
     onLoadMore: () -> Unit,
 
-    onIdentifyWordsClick: () -> Unit,
+    onIdentifyWordsClick: (String?, Int?) -> Unit,
     snackbarHostState: SnackbarHostState,
     onDeleteWord: (Int) -> Unit
 ) {
@@ -95,31 +95,13 @@ fun VocabularyScreen(
         }
     }
 
-    Scaffold(
-        //containerColor = Color(0xFFFCFEFF),
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddWordClick,
-                containerColor = Color(0xFF426F8F),
-                contentColor = Color(0xFFEEF3F7)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add word"
-                )
-            }
-        },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState
-            )
-        }
-    ) { innerPadding ->
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
                 .padding(horizontal = 20.dp)
         ) {
 
@@ -186,8 +168,8 @@ fun VocabularyScreen(
                 modifier = Modifier.height(13.dp)
             )
 
-            TextButton (
-                onClick = onIdentifyWordsClick,
+            TextButton(
+                onClick = {onIdentifyWordsClick(null, null)},
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(13.dp),
                 colors = ButtonDefaults.textButtonColors(
@@ -214,7 +196,9 @@ fun VocabularyScreen(
             if (uiState.isLoading) {
 
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator()
@@ -223,7 +207,9 @@ fun VocabularyScreen(
             } else if (uiState.error != null) {
 
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -234,31 +220,34 @@ fun VocabularyScreen(
 
             } else {
 
-                LazyColumn (
+                LazyColumn(
                     state = listState,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     contentPadding = PaddingValues(
                         bottom = 88.dp
                     )
                 ) {
 
-                    items (
+                    items(
                         items = uiState.words,
                         key = { it.id }
                     ) { word ->
 
-                        val dismissState = rememberSwipeToDismissBoxState(
-                            confirmValueChange = { value ->
+                        val dismissState =
+                            rememberSwipeToDismissBoxState(
+                                confirmValueChange = { value ->
 
-                                if (value == SwipeToDismissBoxValue.EndToStart) {
-                                    wordToDelete = word
-                                    false
-                                } else {
-                                    true
+                                    if (value ==
+                                        SwipeToDismissBoxValue.EndToStart
+                                    ) {
+                                        wordToDelete = word
+                                        false
+                                    } else {
+                                        true
+                                    }
                                 }
-                            }
-                        )
+                            )
 
                         SwipeToDismissBox(
                             state = dismissState,
@@ -268,8 +257,12 @@ fun VocabularyScreen(
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .clip(RoundedCornerShape(16.dp))
-                                        .background(MaterialTheme.colorScheme.errorContainer)
+                                        .clip(
+                                            RoundedCornerShape(16.dp)
+                                        )
+                                        .background(
+                                            MaterialTheme.colorScheme.errorContainer
+                                        )
                                         .padding(horizontal = 20.dp),
                                     contentAlignment = Alignment.CenterEnd
                                 ) {
@@ -295,13 +288,16 @@ fun VocabularyScreen(
                     }
 
                     if (uiState.isLoadingMore) {
+
                         item {
+
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
                                 contentAlignment = Alignment.Center
                             ) {
+
                                 CircularProgressIndicator(
                                     modifier = Modifier.size(24.dp)
                                 )
@@ -311,6 +307,38 @@ fun VocabularyScreen(
                 }
             }
         }
+
+        // Snackbar
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 16.dp
+                )
+        )
+
+        // Floating Action Button
+
+        FloatingActionButton(
+            onClick = onAddWordClick,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(
+                    end = 20.dp,
+                    bottom = 16.dp
+                ),
+            containerColor = Color(0xFF426F8F),
+            contentColor = Color(0xFFEEF3F7)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Add word"
+            )
+        }
     }
 
     if (showAddWordSheet) {
@@ -318,25 +346,29 @@ fun VocabularyScreen(
         AddWordBottomSheet(
             uiState = addWordUiState,
             languages = uiState.languages,
-
             onWordChanged = onWordChanged,
-
             onLanguageSelected = onAddLanguageSelected,
-
             onAddClick = onConfirmAddWord,
-
-            onDismiss = onAddWordDismiss
+            onDismiss = onAddWordDismiss,
+            onIdentifyWordsClick = {onIdentifyWordsClick(
+                addWordUiState.word,
+                addWordUiState.selectedLanguage?.id
+            )}
         )
     }
 
     // Load next page
-    LaunchedEffect (listState) {
+
+    LaunchedEffect(listState) {
 
         snapshotFlow {
-            listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+            listState.layoutInfo.visibleItemsInfo
+                .lastOrNull()
+                ?.index
         }.collect { lastVisibleIndex ->
 
             if (lastVisibleIndex != null) {
+
                 if (lastVisibleIndex >= uiState.words.size - 5) {
                     onLoadMore()
                 }
@@ -357,7 +389,8 @@ fun VocabularyScreen(
 
             text = {
                 Text(
-                    "Are you sure you want to delete \"${wordToDelete!!.word}\"?"
+                    "Are you sure you want to delete " +
+                            "\"${wordToDelete!!.word}\"?"
                 )
             },
 

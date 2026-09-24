@@ -86,7 +86,7 @@ fun IdentifyWordCard(
                     )
 
                     Text(
-                        text = grammarType,
+                        text = grammarType.replace("_", " "),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

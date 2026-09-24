@@ -31,95 +31,92 @@ fun ReviewHomeScreen(
     onViewAllClick: () -> Unit
 ) {
 
-    Scaffold { innerPadding ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp)
+    ) {
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 20.dp)
+        Spacer(
+            modifier = Modifier.height(8.dp)
+        )
+
+        Text(
+            text = "Reviews",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        Text(
+            text = "Keep improving your vocabulary",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Spacer(
+            modifier = Modifier.height(24.dp)
+        )
+
+        ReviewStatisticsSection(
+            statistics = uiState.statistics
+        )
+
+        Spacer(
+            modifier = Modifier.height(28.dp)
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-
             Text(
-                text = "Reviews",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+                text = "Your reviews",
+                style = MaterialTheme.typography.titleMedium
             )
 
-            Text(
-                text = "Keep improving your vocabulary",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            TextButton(
+                onClick = onViewAllClick
+            ) {
+                Text("View all")
+            }
+        }
 
-            Spacer(
-                modifier = Modifier.height(24.dp)
-            )
+        Spacer(
+            modifier = Modifier.height(12.dp)
+        )
 
-            ReviewStatisticsSection(
-                statistics = uiState.statistics
-            )
+        if (uiState.pendingReviews.isEmpty()) {
 
-            Spacer(
-                modifier = Modifier.height(28.dp)
-            )
+            EmptyReviewsCard()
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        } else {
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = PaddingValues(
+                    bottom = 24.dp
+                )
             ) {
 
-                Text(
-                    text = "Your reviews",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                items(
+                    items = uiState.pendingReviews,
+                    key = { it.id }
+                ) { review ->
 
-                TextButton(
-                    onClick = onViewAllClick
-                ) {
-                    Text("View all")
-                }
-            }
-
-            Spacer(
-                modifier = Modifier.height(12.dp)
-            )
-
-            if (uiState.pendingReviews.isEmpty()) {
-
-                EmptyReviewsCard()
-
-            } else {
-
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    contentPadding = PaddingValues(
-                        bottom = 24.dp
+                    ReviewSummaryCard(
+                        review = review,
+                        onClick = {
+                            onReviewClick(review.id)
+                        }
                     )
-                ) {
-
-                    items(
-                        items = uiState.pendingReviews,
-                        key = { it.id }
-                    ) { review ->
-
-                        ReviewSummaryCard(
-                            review = review,
-                            onClick = {
-                                onReviewClick(review.id)
-                            }
-                        )
-                    }
                 }
             }
         }
     }
+
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.presentation.main.home.HomeUiState
+import com.example.vocanapp.presentation.main.home.components.FlashcardsPending
 import com.example.vocanapp.presentation.main.home.components.LearningProgressCard
 import com.example.vocanapp.presentation.main.home.components.NewWordsCard
 import com.example.vocanapp.presentation.main.home.components.StreakCard
@@ -27,104 +28,103 @@ import com.example.vocanapp.presentation.main.home.components.TodayReviewCard
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
-    onReviewClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onReviewClick: () -> Unit
 ) {
 
-    Scaffold(
-        modifier = modifier
-    ) { innerPadding ->
+    if (uiState.isLoading) {
 
-        if (uiState.isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+    } else if (uiState.error != null) {
 
-        } else if (uiState.error != null) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = uiState.error,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(24.dp),
-                contentAlignment = Alignment.Center
-            ) {
+    } else {
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(
+                top = 16.dp,
+                bottom = 24.dp
+            )
+        ) {
+
+            // Greeting
+
+            item {
+
                 Text(
-                    text = uiState.error,
-                    color = MaterialTheme.colorScheme.error
+                    text = "Welcome back, ${uiState.home?.name}!",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
 
-        } else {
+            // Streak
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(
-                    top = 16.dp,
-                    bottom = 24.dp
+            item {
+
+                StreakCard(
+                    streak = uiState.home!!.streak
                 )
-            ) {
+            }
 
-                // Greeting
+            // Learning progress
 
-                item {
+            item {
 
-                    Text(
-                        text = "Welcome back, ${uiState.home?.name}!",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                LearningProgressCard(
+                    statistics = uiState.home!!.languageStatistics
+                )
+            }
+
+            item {
+                NewWordsCard(
+                    statistics = uiState.home!!.languageStatistics
+                )
+            }
+
+            // Today's review + New words
+
+            item {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    TodayReviewCard(
+                        reviewCount = uiState.home!!.todayReviews,
+                        onClick = onReviewClick,
+                        modifier = Modifier.weight(1f)
                     )
-                }
 
-                // Streak
-
-                item {
-
-                    StreakCard(
-                        streak = uiState.home!!.streak
+                    FlashcardsPending(
+                        flashcardsPending = uiState.home.flashcardsToReview,
+                        modifier = Modifier.weight(1f)
                     )
-                }
 
-                // Learning progress
 
-                item {
-
-                    LearningProgressCard(
-                        statistics = uiState.home!!.languageStatistics
-                    )
-                }
-
-                // Today's review + New words
-
-                item {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-
-                        TodayReviewCard(
-                            reviewCount = uiState.home!!.todayReviews,
-                            onClick = onReviewClick,
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        NewWordsCard(
-                            statistics = uiState.home.languageStatistics,
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
                 }
             }
         }

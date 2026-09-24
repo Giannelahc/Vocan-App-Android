@@ -7,5 +7,6 @@ data class AddWordUiState(
     val selectedLanguage: Language? = null,
     val isLoading: Boolean = false,
     val isAdded: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val isInvalidWord: Boolean = false
 )

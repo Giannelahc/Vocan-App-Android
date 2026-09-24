@@ -12,7 +12,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 @Composable
 fun HomeRoute(
     onNavigateToProfile: () -> Unit,
-    onReviewClick: () -> Unit
+    onReviewClick: () -> Unit,
+    onFlashcardsAvailabilityChanged: (Boolean) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState = viewModel.uiState
@@ -52,4 +53,8 @@ fun HomeRoute(
         uiState = uiState,
         onReviewClick = onReviewClick
     )
+
+    LaunchedEffect(uiState.home?.flashcardsActive) {
+        onFlashcardsAvailabilityChanged(uiState.home?.flashcardsActive == true)
+    }
 }

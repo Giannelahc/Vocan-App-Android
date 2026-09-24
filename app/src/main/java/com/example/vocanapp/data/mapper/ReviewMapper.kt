@@ -91,5 +91,7 @@ fun ReviewNotificationSummaryResponse.toDomain(): ReviewNotificationSummary =
         totalPending = totalPending,
         todayReviews = todayReviews,
         overdueReviews = overdueReviews,
-        userName = userName
+        userName = userName,
+        flashcardsToReview = flashcardsToReview,
+        overdueFlashcards = overdueFlashcards
     )

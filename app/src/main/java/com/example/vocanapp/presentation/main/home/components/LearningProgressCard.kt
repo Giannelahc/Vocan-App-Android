@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.home.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,10 @@ fun LearningProgressCard(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFEEF3F7)
+        ),
+        border = BorderStroke(
+            1.dp,
+            Color(0xFF66A2C7)
         )
     ) {
 

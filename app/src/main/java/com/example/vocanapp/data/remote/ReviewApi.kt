@@ -1,6 +1,7 @@
 package com.example.vocanapp.data.remote
 
 import com.example.vocanapp.data.model.review.CompleteReviewRequest
+import com.example.vocanapp.data.model.review.FlashcardReviewRequest
 import com.example.vocanapp.data.model.review.ReviewDetailResponse
 import com.example.vocanapp.data.model.review.ReviewHomeResponse
 import com.example.vocanapp.data.model.review.ReviewNotificationSummaryResponse
@@ -43,5 +44,11 @@ interface ReviewApi {
 
     @GET("reviews/notification-summary")
     suspend fun getReviewNotificationSummary(): ReviewNotificationSummaryResponse
+
+    @POST("reviews/flashcard/{wordId}")
+    suspend fun completeFlashcardReview(
+        @Path("wordId") wordId: Int,
+        @Body request: FlashcardReviewRequest
+    ): Unit
 
 }

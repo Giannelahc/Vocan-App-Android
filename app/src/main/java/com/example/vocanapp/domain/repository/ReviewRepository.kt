@@ -20,4 +20,6 @@ interface ReviewRepository {
     suspend fun completeReview(reviewId: Int, answers: List<CompleteReview>): ReviewResult
 
     suspend fun getReviewNotificationSummary(): ReviewNotificationSummary
+
+    suspend fun completeFlashcardReview(wordId: Int, rating: Int): Unit
 }

@@ -57,6 +57,7 @@ class VocabularyViewModel @Inject constructor(
 
         addWordUiState = addWordUiState.copy(
             word = word,
+            isInvalidWord = false,
             error = null
         )
     }
@@ -87,7 +88,7 @@ class VocabularyViewModel @Inject constructor(
 
             try {
 
-                addWordUseCase(
+                val result = addWordUseCase(
                     word = word,
                     languageId = language.id
                 )
@@ -96,10 +97,15 @@ class VocabularyViewModel @Inject constructor(
                     isLoading = false
                 )
 
-                _events.emit(
-                    VocabularyEvent.WordAdded
-                )
-
+                if (result.status != "INVALID") {
+                    _events.emit(
+                        VocabularyEvent.WordAdded
+                    )
+                } else {
+                    addWordUiState = addWordUiState.copy(
+                        isInvalidWord = true
+                    )
+                }
             } catch (e: Exception) {
 
                 Log.e(

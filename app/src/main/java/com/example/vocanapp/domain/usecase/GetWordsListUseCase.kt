@@ -12,13 +12,17 @@ class GetWordsListUseCase @Inject constructor(
         languageId: Int? = null,
         search: String? = null,
         page: Int? = null,
-        pageSize: Int? = null
+        pageSize: Int? = null,
+        reviewLevel: Int? = null,
+        due: Boolean? = null
     ): WordList {
         return vocabularyRepository.getWordList(
             languageId =  languageId,
             search = search,
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
+            reviewLevel = reviewLevel,
+            due = due
         )
     }
 }

@@ -30,6 +30,8 @@ class IdentifyWordsViewModel @Inject constructor(
 
     val events = _events.asSharedFlow()
 
+    private var pendingLanguageId: Int? = null
+
     init {
         loadLanguages()
     }
@@ -39,6 +41,33 @@ class IdentifyWordsViewModel @Inject constructor(
             sentence = sentence,
             error = null
         )
+    }
+
+    fun initialize(
+        initialText: String?,
+        initialLanguageId: Int?
+    ) {
+        uiState = uiState.copy(
+            sentence = initialText.orEmpty()
+        )
+
+        pendingLanguageId = initialLanguageId
+
+        applyInitialLanguage()
+    }
+
+    private fun applyInitialLanguage() {
+        val languageId = pendingLanguageId ?: return
+
+        val language = uiState.languages
+            .firstOrNull { it.id == languageId }
+            ?: return
+
+        uiState = uiState.copy(
+            language = language
+        )
+
+        pendingLanguageId = null
     }
 
     private fun loadLanguages() {
@@ -52,6 +81,8 @@ class IdentifyWordsViewModel @Inject constructor(
                 uiState = uiState.copy(
                     languages = languages
                 )
+
+                applyInitialLanguage()
 
             } catch (e: Exception) {
 

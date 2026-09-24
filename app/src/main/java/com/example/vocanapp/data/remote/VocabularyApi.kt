@@ -22,7 +22,9 @@ interface VocabularyApi {
         @Query("language_id") languageId: Int? = null,
         @Query("search") search: String? = null,
         @Query("page") page: Int? = 1,
-        @Query("page_size") pageSize: Int? = 50
+        @Query("page_size") pageSize: Int? = 50,
+        @Query("review_level") reviewLevel: Int? = null,
+        @Query("due") due: Boolean? = null
     ): VocabularyListResponse
 
     @GET("vocabulary/{word_id}")

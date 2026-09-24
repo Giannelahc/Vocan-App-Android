@@ -34,6 +34,10 @@ class ReviewNotificationWorker @AssistedInject constructor(
                 )
             }
 
+            if (summary.overdueFlashcards + summary.flashcardsToReview > 0) {
+                FlashcardNotificationHelper.show(context = applicationContext, summary= summary)
+            }
+
             Result.success()
 
         } catch (e: Exception) {

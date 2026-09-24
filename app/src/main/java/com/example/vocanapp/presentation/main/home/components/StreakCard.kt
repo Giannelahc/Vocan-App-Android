@@ -1,12 +1,15 @@
 package com.example.vocanapp.presentation.main.home.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -29,38 +32,50 @@ import com.example.vocanapp.R
 fun StreakCard(
     streak: Int
 ) {
-
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFE3F0FC)
+            containerColor = Color(0xFFEEF3F7)
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
+        ),
+        border = BorderStroke(
+            2.dp,
+            Color(0xFF4B7C9C)
         )
     ) {
-
-        Box(
-            modifier = Modifier.fillMaxSize()
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Image(
-                painter = painterResource(
-                    id = R.drawable.cat_avatar_streak
-                ),
-                contentDescription = null,
+            // Cat
+            Box(
                 modifier = Modifier
-                    .size(160.dp)
-                    .align(Alignment.BottomStart)
-            )
+                    .weight(0.50f)
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.cat_avatar_streak
+                    ),
+                    contentDescription = null,
+                    modifier = Modifier.size(180.dp)
+                )
+            }
 
+            // Text
             Column(
                 modifier = Modifier
-                    .align(Alignment.CenterEnd)
+                    .weight(0.50f)
                     .padding(
-                        start = 15.dp,
-                        end = 20.dp
+                        start = 8.dp,
+                        end = 8.dp
                     )
             ) {
                 Text(
@@ -89,6 +104,10 @@ fun StreakCard(
                     )
                 }
 
+                Spacer(
+                    modifier = Modifier.height(4.dp)
+                )
+
                 Text(
                     text = if (streak > 0) {
                         "Keep it going!"
@@ -98,8 +117,6 @@ fun StreakCard(
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-
-
         }
     }
 }

@@ -17,7 +17,7 @@ import com.example.vocanapp.presentation.main.vocabulary.components.addWord.Voca
 fun VocabularyRoute(
     navBackStackEntry: NavBackStackEntry,
     onWordClick: (Int) -> Unit,
-    onIdentifyWordsClick: () -> Unit
+    onIdentifyWordsClick: (String?, Int?) -> Unit
 ) {
 
     val viewModel: VocabularyViewModel = hiltViewModel()
@@ -147,8 +147,13 @@ fun VocabularyRoute(
 
         onAddWordDismiss = {
             showAddWordSheet = false
+            viewModel.resetAddWordState()
         },
-        onIdentifyWordsClick = onIdentifyWordsClick,
+        onIdentifyWordsClick = { a, b ->
+            showAddWordSheet = false
+            viewModel.resetAddWordState()
+            onIdentifyWordsClick(a,b)
+        },
         snackbarHostState = snackbarHostState,
         onDeleteWord = { wordId ->
             viewModel.deleteWord(wordId)

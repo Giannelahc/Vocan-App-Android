@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -19,7 +20,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun MainNavigationBar(
-    navController: NavHostController
+    navController: NavHostController,
+    flashcardsActive: Boolean
 ) {
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -86,6 +88,31 @@ fun MainNavigationBar(
                 indicatorColor = Color.Transparent
             )
         )
+
+        if (flashcardsActive) {
+            NavigationBarItem(
+                selected = false,
+                onClick = {
+                    navController.navigate("flashcards")
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Style,
+                        contentDescription = "Flashcards"
+                    )
+                },
+                label = {
+                    Text("Flashcards")
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                    unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                    indicatorColor = Color.Transparent
+                )
+            )
+        }
 
         NavigationBarItem(
             selected = currentRoute == "review",

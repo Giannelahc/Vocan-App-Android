@@ -66,7 +66,7 @@ fun WordCard(
                 ) {
 
                     Text(
-                        text = word.word,
+                        text = word.word.replaceFirstChar { it.uppercase() },
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface

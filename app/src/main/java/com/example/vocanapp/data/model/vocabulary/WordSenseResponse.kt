@@ -10,5 +10,6 @@ data class WordSenseResponse(
     val gender: String?,
     val examples: List<ExampleResponse>,
     val synonyms: List<SynonymResponse>,
-    val userExamples: List<UserExampleResponse>?
+    val userExamples: List<UserExampleResponse>?,
+    val properties: Map<String, Any>?
 )

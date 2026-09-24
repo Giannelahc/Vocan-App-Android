@@ -44,5 +44,7 @@ fun HomeInfoResponse.toDomain(): HomeInfo =
         username = username,
         languageStatistics = languageStatistics.map { it.toDomain() },
         streak = streak,
-        todayReviews = todayReviews
+        todayReviews = todayReviews,
+        flashcardsToReview = flashcardsToReview,
+        flashcardsActive = flashcardsActive
     )

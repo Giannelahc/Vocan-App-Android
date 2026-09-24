@@ -64,7 +64,8 @@ fun WordSenseResponse.toDomain(): WordSense =
         gender = gender,
         examples = examples.map { it.toDomain() },
         synonyms = synonyms.map { it.toDomain() },
-        userExamples = userExamples?.map { it.toDomain() }
+        userExamples = userExamples?.map { it.toDomain() },
+        properties = properties
     )
 
 fun ConjugationResponse.toDomain(): Conjugation =

@@ -10,5 +10,6 @@ data class WordSense(
     val gender: String?,
     val examples: List<Example>,
     val synonyms: List<Synonym>,
-    val userExamples: List<UserExample>?
+    val userExamples: List<UserExample>?,
+    val properties: Map<String, Any>?
 )

@@ -6,6 +6,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun IdentifyWordsRoute(
+    initialText: String? = null,
+    initialLanguageId: Int? = null,
     onBackClick: () -> Unit,
     onWordsAdded: () -> Unit
 ) {
@@ -51,4 +53,11 @@ fun IdentifyWordsRoute(
             viewModel.addSelectedWords()
         }
     )
+
+    LaunchedEffect(initialText, initialLanguageId) {
+        viewModel.initialize(
+            initialText = initialText,
+            initialLanguageId = initialLanguageId
+        )
+    }
 }

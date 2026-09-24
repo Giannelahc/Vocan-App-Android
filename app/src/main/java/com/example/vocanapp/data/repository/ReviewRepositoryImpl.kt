@@ -2,6 +2,7 @@ package com.example.vocanapp.data.repository
 
 import com.example.vocanapp.data.mapper.toDomain
 import com.example.vocanapp.data.mapper.toRequest
+import com.example.vocanapp.data.model.review.FlashcardReviewRequest
 import com.example.vocanapp.data.remote.ReviewApi
 import com.example.vocanapp.domain.model.CompleteReview
 import com.example.vocanapp.domain.model.ReviewDetail
@@ -41,6 +42,10 @@ class ReviewRepositoryImpl @Inject constructor(
 
     override suspend fun getReviewNotificationSummary(): ReviewNotificationSummary {
         return api.getReviewNotificationSummary().toDomain()
+    }
+
+    override suspend fun completeFlashcardReview(wordId: Int, rating: Int): Unit {
+        return api.completeFlashcardReview(wordId, FlashcardReviewRequest(rating))
     }
 
 }

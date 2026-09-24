@@ -1,5 +1,6 @@
 package com.example.vocanapp.presentation.main.home.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,7 +35,11 @@ fun TodayReviewCard(
             ),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFE3F0FC)
+            containerColor = Color(0xFFF2F6EF)
+        ),
+        border = BorderStroke(
+            1.dp,
+            Color(0xFF4F7231)
         )
     ) {
 

@@ -21,9 +21,11 @@ class VocabularyRepositoryImpl @Inject constructor(
         languageId: Int?,
         search: String?,
         page: Int?,
-        pageSize: Int?
+        pageSize: Int?,
+        reviewLevel: Int?,
+        due: Boolean?
     ): WordList {
-        val vocabularyList = api.getWordList(languageId, search, page, pageSize)
+        val vocabularyList = api.getWordList(languageId, search, page, pageSize, reviewLevel, due)
         return vocabularyList.toDomain()
     }
 

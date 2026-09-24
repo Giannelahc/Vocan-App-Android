@@ -30,7 +30,7 @@ fun WordHeader(
         ) {
 
             Text(
-                text = word.word,
+                text = word.word.replaceFirstChar { it.uppercase() },
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,

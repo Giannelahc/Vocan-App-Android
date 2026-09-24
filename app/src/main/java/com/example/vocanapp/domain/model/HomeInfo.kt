@@ -8,6 +8,8 @@ data class HomeInfo (
     val username: String,
     val languageStatistics: List<LanguageStatistics>,
     val streak: Int,
-    val todayReviews: Int
+    val todayReviews: Int,
+    val flashcardsToReview: Int,
+    val flashcardsActive: Boolean
 
 )
