@@ -31,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SwipeToDismissBox
@@ -53,7 +54,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Language
 import com.example.vocanapp.domain.model.WordSummary
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.vocabulary.VocabularyUiState
+import com.example.vocanapp.presentation.main.vocabulary.components.EmptyVocabularyCard
 import com.example.vocanapp.presentation.main.vocabulary.components.LanguageSelector
 import com.example.vocanapp.presentation.main.vocabulary.components.WordCard
 import com.example.vocanapp.presentation.main.vocabulary.components.addWord.AddWordBottomSheet
@@ -201,7 +204,9 @@ fun VocabularyScreen(
                         .weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator()
+                    LettersLoading(
+                        modifier = Modifier.size(70.dp)
+                    )
                 }
 
             } else if (uiState.error != null) {
@@ -219,88 +224,91 @@ fun VocabularyScreen(
                 }
 
             } else {
+                if (uiState.words.isEmpty()) {
+                    EmptyVocabularyCard()
+                } else {
+                    LazyColumn(
+                        state = listState,
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        contentPadding = PaddingValues(
+                            bottom = 88.dp
+                        )
+                    ) {
 
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    contentPadding = PaddingValues(
-                        bottom = 88.dp
-                    )
-                ) {
+                        items(
+                            items = uiState.words,
+                            key = { it.id }
+                        ) { word ->
 
-                    items(
-                        items = uiState.words,
-                        key = { it.id }
-                    ) { word ->
+                            val dismissState =
+                                rememberSwipeToDismissBoxState(
+                                    confirmValueChange = { value ->
 
-                        val dismissState =
-                            rememberSwipeToDismissBoxState(
-                                confirmValueChange = { value ->
-
-                                    if (value ==
-                                        SwipeToDismissBoxValue.EndToStart
-                                    ) {
-                                        wordToDelete = word
-                                        false
-                                    } else {
-                                        true
+                                        if (value ==
+                                            SwipeToDismissBoxValue.EndToStart
+                                        ) {
+                                            wordToDelete = word
+                                            false
+                                        } else {
+                                            true
+                                        }
                                     }
+                                )
+
+                            SwipeToDismissBox(
+                                state = dismissState,
+
+                                backgroundContent = {
+
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(
+                                                RoundedCornerShape(16.dp)
+                                            )
+                                            .background(
+                                                MaterialTheme.colorScheme.errorContainer
+                                            )
+                                            .padding(horizontal = 20.dp),
+                                        contentAlignment = Alignment.CenterEnd
+                                    ) {
+
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Delete word",
+                                            tint = MaterialTheme.colorScheme.onErrorContainer
+                                        )
+                                    }
+                                },
+
+                                content = {
+
+                                    WordCard(
+                                        word = word,
+                                        onClick = {
+                                            onWordClick(word.id)
+                                        }
+                                    )
                                 }
                             )
+                        }
 
-                        SwipeToDismissBox(
-                            state = dismissState,
+                        if (uiState.isLoadingMore) {
 
-                            backgroundContent = {
+                            item {
 
                                 Box(
                                     modifier = Modifier
-                                        .fillMaxSize()
-                                        .clip(
-                                            RoundedCornerShape(16.dp)
-                                        )
-                                        .background(
-                                            MaterialTheme.colorScheme.errorContainer
-                                        )
-                                        .padding(horizontal = 20.dp),
-                                    contentAlignment = Alignment.CenterEnd
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    contentAlignment = Alignment.Center
                                 ) {
 
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Delete word",
-                                        tint = MaterialTheme.colorScheme.onErrorContainer
+                                    LettersLoading(
+                                        modifier = Modifier.size(70.dp)
                                     )
                                 }
-                            },
-
-                            content = {
-
-                                WordCard(
-                                    word = word,
-                                    onClick = {
-                                        onWordClick(word.id)
-                                    }
-                                )
-                            }
-                        )
-                    }
-
-                    if (uiState.isLoadingMore) {
-
-                        item {
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(24.dp)
-                                )
                             }
                         }
                     }
@@ -319,7 +327,13 @@ fun VocabularyScreen(
                     end = 16.dp,
                     bottom = 16.dp
                 )
-        )
+        ){ data ->
+            Snackbar(
+                snackbarData = data,
+                containerColor = Color(0xFF307F8A),
+                contentColor = Color.White
+            )
+        }
 
         // Floating Action Button
 

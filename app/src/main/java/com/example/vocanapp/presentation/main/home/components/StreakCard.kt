@@ -62,10 +62,9 @@ fun StreakCard(
             ) {
                 Image(
                     painter = painterResource(
-                        id = R.drawable.cat_avatar_streak
-                    ),
+                        id = R.drawable.michita_streak),
                     contentDescription = null,
-                    modifier = Modifier.size(180.dp)
+                    modifier = Modifier.size(160.dp)
                 )
             }
 

@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.home.HomeUiState
 import com.example.vocanapp.presentation.main.home.components.FlashcardsPending
 import com.example.vocanapp.presentation.main.home.components.LearningProgressCard
@@ -34,11 +34,12 @@ fun HomeScreen(
     if (uiState.isLoading) {
 
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            LettersLoading(
+                modifier = Modifier.size(70.dp)
+            )
         }
 
     } else if (uiState.error != null) {
@@ -119,12 +120,12 @@ fun HomeScreen(
                         modifier = Modifier.weight(1f)
                     )
 
-                    FlashcardsPending(
-                        flashcardsPending = uiState.home.flashcardsToReview,
-                        modifier = Modifier.weight(1f)
-                    )
-
-
+                    if (uiState.home.flashcardsActive) {
+                        FlashcardsPending(
+                            flashcardsPending = uiState.home.flashcardsToReview,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
                 }
             }
         }

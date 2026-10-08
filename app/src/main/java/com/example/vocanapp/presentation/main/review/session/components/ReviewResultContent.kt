@@ -53,7 +53,7 @@ fun ReviewResultContent(
 
             Image(
                 painter = painterResource(
-                    id = R.drawable.gato_bien_hecho
+                    id = R.drawable.happy_michita
                 ),
                 contentDescription = "Happy cat",
                 modifier = Modifier.size(160.dp)
@@ -61,11 +61,12 @@ fun ReviewResultContent(
 
         } else {
 
-            Icon(
-                imageVector = Icons.Default.Refresh,
-                contentDescription = null,
-                modifier = Modifier.size(72.dp),
-                tint = MaterialTheme.colorScheme.primary
+            Image(
+                painter = painterResource(
+                    id = R.drawable.michita_bad_review
+                ),
+                contentDescription = "Happy cat",
+                modifier = Modifier.size(160.dp)
             )
         }
 

@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -41,6 +42,9 @@ object NetworkModule {
         tokenAuthenticator: TokenAuthenticator
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .connectTimeout(80, TimeUnit.SECONDS)
+            .readTimeout(80, TimeUnit.SECONDS)
+            .writeTimeout(80, TimeUnit.SECONDS)
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .authenticator(tokenAuthenticator)
@@ -71,7 +75,7 @@ object NetworkModule {
             .create()
 
         return Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:8000/vocan-agent/")
+            .baseUrl("https://vocab-agents.onrender.com/vocan-agent/")
             .client(okHttpClient)
             .addConverterFactory(
                 GsonConverterFactory.create(gson)
@@ -93,7 +97,7 @@ object NetworkModule {
             .create()
 
         return Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:8000/vocan-agent/")
+            .baseUrl("https://vocab-agents.onrender.com/vocan-agent/")
             .client(okHttpClient)
             .addConverterFactory(
                 GsonConverterFactory.create(gson)

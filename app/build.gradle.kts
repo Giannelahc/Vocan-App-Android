@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
+    implementation(libs.lottie.compose)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.android)
@@ -64,7 +65,8 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.hilt.android)
     implementation(libs.androidx.hilt.work)
-
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
     kapt(libs.androidx.hilt.compiler)
     kapt(libs.androidx.hilt.work.compiler)
     testImplementation(libs.junit)

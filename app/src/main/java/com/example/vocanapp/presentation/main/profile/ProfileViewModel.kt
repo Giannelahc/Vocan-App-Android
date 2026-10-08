@@ -52,14 +52,23 @@ class ProfileViewModel @Inject constructor(
                 val preferences = getUserPreferencesUseCase()
                 val languages = getLanguagesListUseCase()
 
+                val preference = preferences.preference
+
                 uiState = uiState.copy(
                     isLoading = false,
                     username = preferences.username,
                     email = preferences.email,
-                    preferenceId = preferences.preference?.id,
-                    nativeLanguage = preferences.preference?.nativeLanguage,
-                    learningLanguages = preferences.preference?.learningLanguages ?: emptyList(),
-                    availableLanguages = languages
+                    preferenceId = preference?.id,
+
+                    nativeLanguage = preference?.nativeLanguage,
+                    learningLanguages = preference?.learningLanguages ?: emptyList(),
+
+                    originalNativeLanguage = preference?.nativeLanguage,
+                    originalLearningLanguages = preference?.learningLanguages ?: emptyList(),
+
+                    availableLanguages = languages,
+
+                    isInitialSetup = preference == null
                 )
 
             } catch (e: Exception) {
@@ -96,11 +105,7 @@ class ProfileViewModel @Inject constructor(
 
     fun savePreferences() {
 
-        if (uiState.nativeLanguage == null) {
-            return
-        }
-
-        if (uiState.learningLanguages.isEmpty()) {
+        if (!uiState.canSave) {
             return
         }
 
@@ -113,17 +118,27 @@ class ProfileViewModel @Inject constructor(
 
             try {
 
-                uiState.nativeLanguage?.let {
-                    updateUserPreferencesUseCase(Preference(
+                val nativeLanguage = uiState.nativeLanguage
+                    ?: return@launch
+
+                updateUserPreferencesUseCase(
+                    Preference(
                         id = uiState.preferenceId,
-                        nativeLanguage = it,
-                        learningLanguages = uiState.learningLanguages)
+                        nativeLanguage = nativeLanguage,
+                        learningLanguages = uiState.learningLanguages
                     )
-                }
+                )
 
                 uiState = uiState.copy(
-                    isSaving = false
+                    isSaving = false,
+
+                    originalNativeLanguage = nativeLanguage,
+                    originalLearningLanguages = uiState.learningLanguages,
+
+                    isInitialSetup = false
                 )
+
+                _events.emit(ProfileEvent.PreferencesSaved)
 
             } catch (e: Exception) {
 

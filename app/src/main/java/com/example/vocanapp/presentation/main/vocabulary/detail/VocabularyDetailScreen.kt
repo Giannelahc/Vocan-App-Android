@@ -3,6 +3,7 @@ package com.example.vocanapp.presentation.main.vocabulary.detail
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.vocabulary.detail.components.VocabularyDetailContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -129,7 +131,9 @@ fun VocabularyDetailScreen(
                         .padding(innerPadding),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator()
+                    LettersLoading(
+                        modifier = Modifier.size(70.dp)
+                    )
                 }
             }
 

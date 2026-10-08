@@ -28,6 +28,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.review.components.ReviewSummaryCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +70,9 @@ fun ReviewListScreen(
                     .padding(innerPadding),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                LettersLoading(
+                    modifier = Modifier.size(70.dp)
+                )
             }
 
         } else if (uiState.error != null) {
@@ -134,8 +137,8 @@ fun ReviewListScreen(
                                 .padding(16.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp)
+                            LettersLoading(
+                                modifier = Modifier.size(70.dp)
                             )
                         }
                     }

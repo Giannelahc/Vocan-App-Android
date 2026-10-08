@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.CircularProgressIndicator
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.ReviewRating
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.flashcard.components.EmptyFlashcardsState
 import com.example.vocanapp.presentation.main.flashcard.components.Flashcard
 import com.example.vocanapp.presentation.main.flashcard.components.RatingButtons
@@ -37,7 +39,9 @@ fun FlashcardsScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator()
+                    LettersLoading(
+                        modifier = Modifier.size(40.dp)
+                    )
                 }
             }
 

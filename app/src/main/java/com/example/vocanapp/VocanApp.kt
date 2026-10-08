@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.vocanapp.presentation.host.AuthNavHost
 import com.example.vocanapp.presentation.host.MainNavHost
+import com.example.vocanapp.presentation.main.InitialLoadingScreen
 import com.example.vocanapp.presentation.session.SessionState
 import com.example.vocanapp.presentation.session.SessionViewModel
 
@@ -21,7 +22,7 @@ fun VocanApp(
     when (sessionState) {
 
         SessionState.Loading -> {
-            // SplashScreen()
+            InitialLoadingScreen()
         }
 
         SessionState.LoggedOut -> {

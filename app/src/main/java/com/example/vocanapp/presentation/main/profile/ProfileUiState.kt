@@ -9,10 +9,28 @@ data class ProfileUiState(
     val nativeLanguage: Language? = null,
     val learningLanguages: List<Language> = emptyList(),
 
+    val originalNativeLanguage: Language? = null,
+    val originalLearningLanguages: List<Language> = emptyList(),
+
     val availableLanguages: List<Language> = emptyList(),
+
+    val isInitialSetup: Boolean = false,
 
     val isLoading: Boolean = false,
     val isSaving: Boolean = false,
 
     val error: String? = null
-)
+) {
+    val hasChanges: Boolean
+        get() =
+            nativeLanguage?.id != originalNativeLanguage?.id ||
+                    learningLanguages.map { it.id }.toSet() !=
+                    originalLearningLanguages.map { it.id }.toSet()
+
+    val canSave: Boolean
+        get() =
+            !isSaving &&
+                    nativeLanguage != null &&
+                    learningLanguages.isNotEmpty() &&
+                    hasChanges
+}

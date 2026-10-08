@@ -2,12 +2,14 @@ package com.example.vocan.presentation.auth.register
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.presentation.auth.register.RegisterEvent
 import com.example.vocanapp.presentation.auth.register.RegisterUiState
+import com.example.vocanapp.presentation.main.LettersLoading
 
 @Composable
 fun RegisterScreen(
@@ -197,10 +200,14 @@ fun RegisterScreen(
 
             if (uiState.isLoading) {
 
-                CircularProgressIndicator(
-                    modifier = Modifier.height(22.dp),
-                    strokeWidth = 2.dp
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LettersLoading(
+                        modifier = Modifier.size(40.dp)
+                    )
+                }
 
             } else {
 

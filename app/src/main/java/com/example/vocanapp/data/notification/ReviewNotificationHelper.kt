@@ -59,10 +59,10 @@ object ReviewNotificationHelper {
                 CHANNEL_ID
             )
                 .setSmallIcon(
-                    R.drawable.icon_noti_cat
+                    R.drawable.happy_michita
                 )
                 .setContentTitle(
-                    "Vocabulary Assistant"
+                    "Review Reminder"
                 )
                 .setContentText(
                     message

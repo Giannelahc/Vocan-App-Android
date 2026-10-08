@@ -33,8 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.vocanapp.presentation.main.LettersLoading
 import com.example.vocanapp.presentation.main.profile.component.ProfilePreferenceItem
 import com.example.vocanapp.presentation.main.profile.component.ProfileSectionTitle
+import com.example.vocanapp.presentation.main.profile.component.WelcomeProfileCard
 
 @Composable
 fun ProfileScreen(
@@ -47,18 +49,15 @@ fun ProfileScreen(
     onSavePreferences: () -> Unit
 ) {
 
-    val canSave =
-        uiState.nativeLanguage != null &&
-                uiState.learningLanguages.isNotEmpty() &&
-                !uiState.isSaving
-
     if (uiState.isLoading) {
 
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            LettersLoading(
+                modifier = Modifier.size(70.dp)
+            )
         }
 
         return
@@ -139,6 +138,12 @@ fun ProfileScreen(
 
         // Learning preferences
 
+        if (uiState.isInitialSetup) {
+            item {
+                WelcomeProfileCard()
+            }
+        }
+
         item {
 
             Spacer(
@@ -185,27 +190,29 @@ fun ProfileScreen(
 
             Button(
                 onClick = onSavePreferences,
-                enabled = canSave,
+                enabled = uiState.canSave,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 4.dp),
                 shape = RoundedCornerShape(14.dp),
-                colors = ButtonDefaults.textButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF426F8F),
                     contentColor = Color(0xFFEEF3F7)
                 )
             ) {
-
                 if (uiState.isSaving) {
-
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         strokeWidth = 2.dp
                     )
-
                 } else {
-
-                    Text("Save changes")
+                    Text(
+                        text = if (uiState.isInitialSetup) {
+                            "Continue"
+                        } else {
+                            "Save changes"
+                        }
+                    )
                 }
             }
         }
