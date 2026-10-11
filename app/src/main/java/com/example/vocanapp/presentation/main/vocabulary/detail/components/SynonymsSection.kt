@@ -2,6 +2,7 @@ package com.example.vocanapp.presentation.main.vocabulary.detail.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -11,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.vocanapp.domain.model.Synonym
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SynonymsSection(
     synonyms: List<Synonym>
