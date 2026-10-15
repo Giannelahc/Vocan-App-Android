@@ -38,14 +38,14 @@ fun StreakCard(
             .height(180.dp),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
         ),
         border = BorderStroke(
             2.dp,
-            Color(0xFF4B7C9C)
+            MaterialTheme.colorScheme.secondary
         )
     ) {
         Row(

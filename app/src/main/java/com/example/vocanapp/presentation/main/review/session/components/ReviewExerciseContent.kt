@@ -60,7 +60,7 @@ fun ReviewExerciseContent(
             )
 
             Text(
-                text = exercise.question,
+                text = exercise.question.replace("_", " "),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -105,8 +105,8 @@ fun ReviewExerciseContent(
                     bottom = 24.dp
                 ),
             colors = ButtonDefaults.textButtonColors(
-                containerColor = Color(0xFF426F8F),
-                contentColor = Color(0xFFEEF3F7)
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.background
             )
         ) {
             Text(

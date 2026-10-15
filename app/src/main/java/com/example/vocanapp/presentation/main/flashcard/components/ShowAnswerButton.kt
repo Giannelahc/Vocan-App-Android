@@ -35,11 +35,11 @@ fun ShowAnswerButton(
             shape = RoundedCornerShape(14.dp),
             border = BorderStroke(
                 width = 1.5.dp,
-                color = Color(0xFF426F8F)
+                color = MaterialTheme.colorScheme.secondary
             ),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF426F8F).copy(alpha = 0.20f),
-                contentColor = Color(0xFF426F8F)
+                containerColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.20f),
+                contentColor = MaterialTheme.colorScheme.secondary
             )
         ) {
             Text(

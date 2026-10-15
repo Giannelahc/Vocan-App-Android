@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +29,7 @@ fun InitialLoadingScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -67,7 +68,7 @@ fun InitialLoadingScreen() {
                 text = "Michilingo",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF222222)
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(

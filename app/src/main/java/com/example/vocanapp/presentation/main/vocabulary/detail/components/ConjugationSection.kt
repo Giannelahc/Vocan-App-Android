@@ -44,15 +44,6 @@ fun ConjugationSection(
         modifier = Modifier.fillMaxWidth()
     ) {
 
-        /*HorizontalDivider(
-            color = Color(0xFF8FB2CC),
-            thickness = 1.dp
-        )
-
-        Spacer(
-            modifier = Modifier.height(15.dp)
-        )*/
-
         Surface (
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,10 +51,10 @@ fun ConjugationSection(
                     expanded = !expanded
                 },
             shape = RoundedCornerShape(16.dp),
-            color = Color(0xFFEEF3F7),
+            color = MaterialTheme.colorScheme.background,
             border = BorderStroke(
                 1.dp,
-                Color(0xFF8FB2CC)
+                MaterialTheme.colorScheme.outline
             )
         ) {
 

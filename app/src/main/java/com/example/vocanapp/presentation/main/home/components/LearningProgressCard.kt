@@ -32,11 +32,11 @@ fun LearningProgressCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         border = BorderStroke(
             1.dp,
-            Color(0xFF66A2C7)
+            MaterialTheme.colorScheme.secondary
         )
     ) {
         Column(

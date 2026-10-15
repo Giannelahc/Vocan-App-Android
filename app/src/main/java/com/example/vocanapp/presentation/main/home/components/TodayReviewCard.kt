@@ -35,11 +35,11 @@ fun TodayReviewCard(
             ),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF2F6EF)
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         border = BorderStroke(
             1.dp,
-            Color(0xFF4F7231)
+            MaterialTheme.colorScheme.tertiary
         )
     ) {
 

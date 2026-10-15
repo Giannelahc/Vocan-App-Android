@@ -30,7 +30,7 @@ fun WelcomeProfileCard() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFE8F1F8)
+            containerColor = MaterialTheme.colorScheme.onSecondaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
@@ -56,7 +56,7 @@ fun WelcomeProfileCard() {
                     text = "Welcome to Michilingo!",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF315875)
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
 
                 Text(
@@ -64,7 +64,7 @@ fun WelcomeProfileCard() {
                             "Choose your native language and the " +
                             "languages you'd like to learn.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color(0xFF47647A)
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
 

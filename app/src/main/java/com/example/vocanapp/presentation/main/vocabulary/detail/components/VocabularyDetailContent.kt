@@ -20,7 +20,7 @@ fun VocabularyDetailContent(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             horizontal = 20.dp,
-            vertical = 20.dp
+            vertical = 5.dp
         ),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {

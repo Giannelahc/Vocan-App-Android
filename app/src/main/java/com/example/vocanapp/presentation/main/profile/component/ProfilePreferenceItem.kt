@@ -38,10 +38,10 @@ fun ProfilePreferenceItem(
             .fillMaxWidth()
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
-        color = Color(0xFFEEF3F7),
+        color = MaterialTheme.colorScheme.background,
         border = BorderStroke(
             1.dp,
-            Color(0xFF8FB2CC)
+            MaterialTheme.colorScheme.outline
         )
     ) {
 

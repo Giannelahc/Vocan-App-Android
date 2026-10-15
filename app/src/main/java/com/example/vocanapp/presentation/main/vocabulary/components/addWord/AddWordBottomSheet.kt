@@ -42,9 +42,9 @@ fun AddWordBottomSheet(
     onDismiss: () -> Unit
 ) {
     ModalBottomSheet(
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.onSecondary
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()

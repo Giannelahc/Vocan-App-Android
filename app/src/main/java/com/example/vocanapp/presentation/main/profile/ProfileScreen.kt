@@ -196,8 +196,8 @@ fun ProfileScreen(
                     .padding(top = 4.dp),
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF426F8F),
-                    contentColor = Color(0xFFEEF3F7)
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 if (uiState.isSaving) {

@@ -63,7 +63,7 @@ fun LanguageProgressRow(
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp)),
-            color = Color(0xFF9C754B),
+            color = MaterialTheme.colorScheme.secondary,
             trackColor = Color.White.copy(alpha = 0.7f)
         )
     }

@@ -30,14 +30,14 @@ fun ReviewOption(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         border = BorderStroke(
             width = if (selected) 2.dp else 1.dp,
             color = if (selected) {
-                Color(0xFF426F8F)
+                MaterialTheme.colorScheme.secondary
             } else {
-                Color(0xFF8FB2CC)
+                MaterialTheme.colorScheme.outline
             }
         )
     ) {

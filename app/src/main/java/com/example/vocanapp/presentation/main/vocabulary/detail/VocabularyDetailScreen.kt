@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,7 +58,9 @@ fun VocabularyDetailScreen(
                 title = {
                     Text("Vocabulary")
                 },
-
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                ),
                 navigationIcon = {
                     IconButton(
                         onClick = onBackClick
@@ -88,7 +91,7 @@ fun VocabularyDetailScreen(
                             onDismissRequest = {
                                 showMenu = false
                             },
-                            containerColor = Color(0xFFEEF3F7)
+                            containerColor = MaterialTheme.colorScheme.background
                         ) {
 
                             DropdownMenuItem(
@@ -102,7 +105,7 @@ fun VocabularyDetailScreen(
                             )
 
                             HorizontalDivider(
-                                color = Color(0xFF8FB2CC),
+                                color = MaterialTheme.colorScheme.outline,
                                 thickness = 1.dp
                             )
 

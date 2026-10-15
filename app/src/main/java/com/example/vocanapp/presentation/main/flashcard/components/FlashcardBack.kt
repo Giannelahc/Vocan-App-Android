@@ -31,11 +31,11 @@ fun FlashcardBack(
         modifier = modifier.fillMaxSize(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         border = BorderStroke(
             3.dp,
-            Color(0xFF8FB2CC)
+            MaterialTheme.colorScheme.outline
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -57,7 +57,7 @@ fun FlashcardBack(
                     text = flashcard.word.uppercase(),
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF426F8F)
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
 

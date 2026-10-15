@@ -62,7 +62,7 @@ fun LanguageSelector(
                     vertical = 4.dp
                 ),
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = Color(0xFFEEF3F7)
+                    containerColor = MaterialTheme.colorScheme.background
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
@@ -134,9 +134,9 @@ fun LanguageSelector(
                 singleLine = true,
                 shape = RoundedCornerShape(16.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFFEDFAFF),
-                    unfocusedContainerColor = Color(0xFFEDFAFF),
-                    disabledContainerColor = Color(0xFFEDFAFF)
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             )
 
@@ -144,7 +144,8 @@ fun LanguageSelector(
                 expanded = expanded && enabled,
                 onDismissRequest = {
                     expanded = false
-                }
+                },
+                containerColor = MaterialTheme.colorScheme.background
             ) {
 
                 LanguageMenuItems(

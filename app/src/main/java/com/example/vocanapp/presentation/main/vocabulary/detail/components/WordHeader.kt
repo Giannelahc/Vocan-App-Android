@@ -39,10 +39,10 @@ fun WordHeader(
 
             Surface (
                 shape = RoundedCornerShape(10.dp),
-                color = Color(0xFFEEF3F7),
+                color = MaterialTheme.colorScheme.background,
                 border = BorderStroke(
                     1.dp,
-                    Color(0xFF8FB2CC)
+                    MaterialTheme.colorScheme.outline
                 )
             ) {
                 Text(

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -35,11 +36,11 @@ fun SynonymsSection(
                         Text(synonym.word)
                     },
                     colors = AssistChipDefaults.assistChipColors(
-                        containerColor = Color(0xFFEEF3F7)
+                        containerColor = MaterialTheme.colorScheme.background
                     ),
                     border = BorderStroke(
                         1.dp,
-                        Color(0xFF8FB2CC)
+                        MaterialTheme.colorScheme.outline
                     )
                 )
             }

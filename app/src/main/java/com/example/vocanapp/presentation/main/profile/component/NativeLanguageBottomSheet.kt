@@ -41,7 +41,8 @@ fun NativeLanguageBottomSheet(
 ) {
 
     ModalBottomSheet(
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer
     ) {
 
         Column(
@@ -93,13 +94,13 @@ fun NativeLanguageBottomSheet(
                             },
                         shape = RoundedCornerShape(12.dp),
                         color = if (selected) {
-                            Color(0xFFBFD6DE)
+                            MaterialTheme.colorScheme.primaryContainer
                         } else {
-                            Color(0xFFEEF3F7)
+                            MaterialTheme.colorScheme.background
                         },
                         border = BorderStroke(
                             1.dp,
-                            Color(0xFF8FB2CC)
+                            MaterialTheme.colorScheme.outline
                         )
                     ) {
 

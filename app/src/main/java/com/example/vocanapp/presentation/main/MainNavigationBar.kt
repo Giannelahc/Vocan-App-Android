@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -30,7 +31,7 @@ fun MainNavigationBar(
         currentBackStackEntry?.destination?.route
 
     NavigationBar(
-        containerColor = Color(0xFF386585)
+        containerColor = MaterialTheme.colorScheme.secondary
     ) {
 
         NavigationBarItem(
@@ -54,8 +55,8 @@ fun MainNavigationBar(
             colors = NavigationBarItemDefaults.colors(
                 selectedIconColor = Color.White,
                 selectedTextColor = Color.White,
-                unselectedIconColor = Color.White.copy(alpha = 0.7f),
-                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                unselectedIconColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
+                unselectedTextColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
                 indicatorColor = Color.Transparent
             )
         )
@@ -83,8 +84,8 @@ fun MainNavigationBar(
             colors = NavigationBarItemDefaults.colors(
                 selectedIconColor = Color.White,
                 selectedTextColor = Color.White,
-                unselectedIconColor = Color.White.copy(alpha = 0.7f),
-                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                unselectedIconColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
+                unselectedTextColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
                 indicatorColor = Color.Transparent
             )
         )
@@ -107,8 +108,8 @@ fun MainNavigationBar(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color.White,
                     selectedTextColor = Color.White,
-                    unselectedIconColor = Color.White.copy(alpha = 0.7f),
-                    unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                    unselectedIconColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
+                    unselectedTextColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
                     indicatorColor = Color.Transparent
                 )
             )
@@ -137,8 +138,8 @@ fun MainNavigationBar(
             colors = NavigationBarItemDefaults.colors(
                 selectedIconColor = Color.White,
                 selectedTextColor = Color.White,
-                unselectedIconColor = Color.White.copy(alpha = 0.7f),
-                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                unselectedIconColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
+                unselectedTextColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
                 indicatorColor = Color.Transparent
             )
         )
@@ -166,8 +167,8 @@ fun MainNavigationBar(
             colors = NavigationBarItemDefaults.colors(
                 selectedIconColor = Color.White,
                 selectedTextColor = Color.White,
-                unselectedIconColor = Color.White.copy(alpha = 0.7f),
-                unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                unselectedIconColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
+                unselectedTextColor = MaterialTheme.colorScheme.background.copy(alpha = 0.7f),
                 indicatorColor = Color.Transparent
             )
         )

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -29,7 +30,7 @@ fun LanguageMenuItems(
     languages.forEach { language ->
 
         HorizontalDivider(
-            color = Color(0xFF8FB2CC),
+            color = MaterialTheme.colorScheme.outline,
             thickness = 1.dp
         )
 

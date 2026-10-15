@@ -22,6 +22,7 @@ class ReviewNotificationScheduler @Inject constructor(
     fun scheduleTest() {
         val request =
             OneTimeWorkRequestBuilder<ReviewNotificationWorker>()
+                .setInitialDelay(3, TimeUnit.MINUTES)
                 .build()
 
         workManager.enqueueUniqueWork(
@@ -32,7 +33,6 @@ class ReviewNotificationScheduler @Inject constructor(
     }
 
     fun schedule() {
-
         val initialDelay = calculateInitialDelay()
 
         val request =
@@ -48,7 +48,7 @@ class ReviewNotificationScheduler @Inject constructor(
 
         workManager.enqueueUniquePeriodicWork(
             WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.UPDATE,
             request
         )
     }
@@ -78,6 +78,6 @@ class ReviewNotificationScheduler @Inject constructor(
         private const val WORK_NAME =
             "review_notification_work"
 
-        private const val NOTIFICATION_HOUR = 8
+        private const val NOTIFICATION_HOUR = 2
     }
 }

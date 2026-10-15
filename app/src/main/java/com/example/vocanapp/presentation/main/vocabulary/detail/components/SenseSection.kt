@@ -31,7 +31,7 @@ fun SenseSection(
     ) {
 
         HorizontalDivider(
-            color = Color(0xFF8FB2CC),
+            color = MaterialTheme.colorScheme.outline,
             thickness = 2.dp
         )
 

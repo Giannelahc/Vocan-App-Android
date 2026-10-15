@@ -25,7 +25,7 @@ fun ReviewStatisticItem(
             text = value,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
 
         Spacer(

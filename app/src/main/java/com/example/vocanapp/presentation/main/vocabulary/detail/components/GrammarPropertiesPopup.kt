@@ -111,7 +111,7 @@ private fun formatPropertyValue(
     return when (value) {
         null -> "—"
         is Boolean -> if (value) "Yes" else "No"
-        is String -> value
-        else -> value.toString()
+        is String -> value.replace("_", " ")
+        else -> value.toString().replace("_", " ")
     }
 }

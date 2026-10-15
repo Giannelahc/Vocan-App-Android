@@ -39,14 +39,14 @@ fun WordCard(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
         ),
         border = BorderStroke(
             1.dp,
-            Color(0xFF8FB2CC)
+            MaterialTheme.colorScheme.outline
         )
     ) {
 

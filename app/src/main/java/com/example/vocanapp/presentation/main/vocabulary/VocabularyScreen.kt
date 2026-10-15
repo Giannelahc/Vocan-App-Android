@@ -176,8 +176,8 @@ fun VocabularyScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(13.dp),
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = Color(0xFF426F8F),
-                    contentColor = Color(0xFFEEF3F7)
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Icon(
@@ -345,8 +345,8 @@ fun VocabularyScreen(
                     end = 20.dp,
                     bottom = 16.dp
                 ),
-            containerColor = Color(0xFF426F8F),
-            contentColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.background
         ) {
             Icon(
                 imageVector = Icons.Default.Add,

@@ -40,14 +40,14 @@ fun NewWordsCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF7F2EE)
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
         ),
         border = BorderStroke(
             1.dp,
-            Color(0xFF9C754B)
+            MaterialTheme.colorScheme.secondary
         )
     ) {
         Column(
@@ -88,7 +88,7 @@ fun NewWordsCard(
                     text = totalNewWords.toString(),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF9C754B)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(

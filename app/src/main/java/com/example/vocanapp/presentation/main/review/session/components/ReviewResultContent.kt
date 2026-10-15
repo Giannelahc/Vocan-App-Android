@@ -107,7 +107,7 @@ fun ReviewResultContent(
             text = "Next review at ${result.nextReviewAt.formatReviewDate()}",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = Color(0xFF426F8F)
+            color = MaterialTheme.colorScheme.secondary
         )
 
         Spacer(
@@ -118,8 +118,8 @@ fun ReviewResultContent(
             onClick = onDoneClick,
             modifier = Modifier.width(90.dp),
             colors = ButtonDefaults.textButtonColors(
-                containerColor = Color(0xFF426F8F),
-                contentColor = Color(0xFFEEF3F7)
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.background
             )
         ) {
             Text("Done")

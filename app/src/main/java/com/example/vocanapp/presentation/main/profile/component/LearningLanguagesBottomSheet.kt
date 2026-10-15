@@ -52,7 +52,8 @@ fun LearningLanguagesBottomSheet(
     }
 
     ModalBottomSheet(
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer
     ) {
 
         Column(
@@ -117,13 +118,13 @@ fun LearningLanguagesBottomSheet(
                             },
                         shape = RoundedCornerShape(12.dp),
                         color = if (selected) {
-                            Color(0xFFBFD6DE)
+                            MaterialTheme.colorScheme.primaryContainer
                         } else {
-                            Color(0xFFEEF3F7)
+                            MaterialTheme.colorScheme.background
                         },
                         border = BorderStroke(
                             1.dp,
-                            Color(0xFF8FB2CC)
+                            MaterialTheme.colorScheme.outline
                         )
                     ) {
 
@@ -175,7 +176,7 @@ fun LearningLanguagesBottomSheet(
                                         }
                                 },
                                 colors = CheckboxDefaults.colors(
-                                    checkedColor = Color(0xFF426F8F),
+                                    checkedColor = MaterialTheme.colorScheme.secondary,
                                     uncheckedColor = MaterialTheme.colorScheme
                                         .onSurfaceVariant
                                 ),
@@ -196,8 +197,8 @@ fun LearningLanguagesBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = Color(0xFF426F8F),
-                    contentColor = Color(0xFFEEF3F7)
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Text("Done")

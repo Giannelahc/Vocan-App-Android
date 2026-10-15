@@ -33,11 +33,11 @@ fun FlashcardFront(
         modifier = modifier.fillMaxSize(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFEEF3F7)
+            containerColor = MaterialTheme.colorScheme.background
         ),
         border = BorderStroke(
             3.dp,
-            Color(0xFF8FB2CC)
+            MaterialTheme.colorScheme.outline
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -54,7 +54,7 @@ fun FlashcardFront(
                 text = "Guess the word whose translations are",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF426F8F)
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(

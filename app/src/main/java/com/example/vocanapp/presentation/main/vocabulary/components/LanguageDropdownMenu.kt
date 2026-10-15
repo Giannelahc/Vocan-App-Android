@@ -2,6 +2,7 @@ package com.example.vocanapp.presentation.main.vocabulary.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,7 +19,7 @@ fun LanguageDropdownMenu(
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
-        containerColor = Color(0xFFEEF3F7),
+        containerColor = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(5.dp)
     ) {
 
