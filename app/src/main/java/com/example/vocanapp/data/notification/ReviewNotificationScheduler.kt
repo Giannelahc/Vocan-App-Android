@@ -1,6 +1,7 @@
 package com.example.vocanapp.data.notification
 
 import android.content.Context
+import android.util.Log
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -35,6 +36,13 @@ class ReviewNotificationScheduler @Inject constructor(
     fun schedule() {
         val initialDelay = calculateInitialDelay()
 
+        Log.d(
+            "ReviewScheduler",
+            "schedule() called: now=${ZonedDateTime.now()}, " +
+                    "hour=$NOTIFICATION_HOUR, " +
+                    "initialDelayMs=$initialDelay"
+        )
+
         val request =
             PeriodicWorkRequestBuilder<ReviewNotificationWorker>(
                 24,
@@ -48,7 +56,7 @@ class ReviewNotificationScheduler @Inject constructor(
 
         workManager.enqueueUniquePeriodicWork(
             WORK_NAME,
-            ExistingPeriodicWorkPolicy.UPDATE,
+            ExistingPeriodicWorkPolicy.KEEP,
             request
         )
     }
